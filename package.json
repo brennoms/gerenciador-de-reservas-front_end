@@ -4,6 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "husky install",
+    "format": "prettier --config .configs/.prettierrc --ignore-path .configs/.prettierrcignore --write .",
+    "eslint": "eslint --config .configs/eslint.config.js . --fix",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -18,10 +21,19 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.22.0",
+    "eslint": "^9.25.1",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.3",
     "vite": "^6.3.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json}": [
+      "eslint --config .configs/eslint.config.js .",
+      "prettier --config .configs/.prettierrc --ignore-path .configs/.prettierignore --check"
+    ]
   }
 }
