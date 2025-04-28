@@ -1,0 +1,9 @@
+aside {
+  background-color: gray;
+  padding: 10vw;
+}
+
+.back {
+  display: flex;
+  height: 100vh;
+}
