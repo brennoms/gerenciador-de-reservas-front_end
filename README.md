@@ -45,6 +45,7 @@ Crie um arquivo `.env` na raiz do projeto e adicione:
 ```bash
 API_URL=http://localhost:3000/api
 ```
+
 > Altere o valor da URL se o backend estiver rodando em outro endereço.
 
 Rode o projeto:
