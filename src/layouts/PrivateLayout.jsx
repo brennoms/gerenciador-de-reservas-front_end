@@ -4,7 +4,7 @@ import './PrivateLayout.css';
 
 export default function PrivateLayout() {
   return (
-    <div class="back">
+    <div className="back">
       <aside>
         <nav></nav>
       </aside>
