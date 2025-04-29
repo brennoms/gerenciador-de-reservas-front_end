@@ -4,6 +4,7 @@ import ProtectedRoute from './ProtectedRoute';
 import PublicLayout from '../layouts/PublicLayout';
 import PrivateLayout from '../layouts/PrivateLayout';
 import Home from '../pages/Home';
+import Login from '../pages/Login';
 
 const privateRoutes = {
   properties: {
@@ -21,7 +22,7 @@ export default function AppRoutes() {
     <Routes>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<p>Login</p>} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<p>Register</p>} />
       </Route>
 
