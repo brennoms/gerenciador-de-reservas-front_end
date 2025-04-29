@@ -14,7 +14,7 @@ export default function PublicLayout() {
       </main>
 
       <footer>
-        <p>© 2025 - Todos os direitos reservados</p>
+        <p>© 2025 - Brenno Marques | Todos os direitos reservados</p>
       </footer>
     </div>
   );
