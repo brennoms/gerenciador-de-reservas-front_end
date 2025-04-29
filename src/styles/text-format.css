@@ -1,0 +1,8 @@
+.alert {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  color: #ff0000;
+  font-weight: bold;
+  min-height: 1.1rem;
+}
