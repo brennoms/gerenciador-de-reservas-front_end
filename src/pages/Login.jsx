@@ -1,16 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/displays.css';
+import '../styles/buttons.css';
+import '../styles/text-format.css';
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const { login } = useAuth();
+  const [pass, setPass] = useState('');
+  const [alert, setAlert] = useState('');
+  const { login, verifyStorageToken } = useAuth();
+
+  useEffect(() => {
+    async function checkToken() {
+      if (await verifyStorageToken()) {
+        navigate('/properties', { replace: true });
+      }
+    }
+    checkToken();
+  }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
-    login({ email, senha });
+    login({ email, pass }).then(res => {
+      if (res !== true) {
+        setAlert(res);
+      } else {
+        navigate('/properties', { replace: true });
+      }
+    });
   };
 
   return (
@@ -28,13 +49,16 @@ export default function Login() {
 
         <input
           type="password"
-          value={senha}
+          value={pass}
           placeholder="senha"
-          onChange={e => setSenha(e.target.value)}
+          onChange={e => setPass(e.target.value)}
           required
         />
 
-        <button type="submit">Entrar</button>
+        <p className="alert">{alert}</p>
+        <button type="submit" className="button1">
+          Entrar
+        </button>
       </form>
     </div>
   );
