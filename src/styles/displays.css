@@ -1,0 +1,19 @@
+.flex {
+  display: flex;
+}
+.flex.column-center {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.flex.row-center {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.flex.gap-1 {
+  gap: 1rem;
+}
+.min-height-80vh {
+  min-height: 80vh;
+}
