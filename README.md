@@ -47,7 +47,6 @@ Crie um arquivo `.env` na raiz do projeto e adicione:
 VITE_API_URL=http://localhost:3000
 ```
 
-
 Rode o projeto:
 
 ```bash
