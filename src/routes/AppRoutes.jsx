@@ -6,13 +6,14 @@ import PrivateLayout from '../layouts/PrivateLayout';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+import Properties from '../pages/Properties';
 
 const privateRoutes = {
   properties: {
     path: '/properties',
     element: (
       <ProtectedRoute>
-        <p>properties</p>
+        <Properties />
       </ProtectedRoute>
     ),
   },

@@ -17,3 +17,16 @@
 .min-height-80vh {
   min-height: 80vh;
 }
+
+.display-grid {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+.display-grid.gap-1rem {
+  gap: 1rem;
+}
+
+.display-grid.gap-2rem {
+  gap: 2rem;
+}
