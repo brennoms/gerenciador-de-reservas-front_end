@@ -43,10 +43,10 @@ npm install
 Crie um arquivo `.env` na raiz do projeto e adicione:
 
 ```bash
-API_URL=http://localhost:3000/api
+# Substitua pela URL da sua API
+VITE_API_URL=http://localhost:3000
 ```
 
-> Altere o valor da URL se o backend estiver rodando em outro endereço.
 
 Rode o projeto:
 
