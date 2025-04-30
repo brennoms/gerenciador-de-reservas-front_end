@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { registerUser } from '../services/userService';
 import { useAuth } from '../contexts/AuthContext';
-import '../styles/displays.css';
 
 export default function Register() {
   const [name, setName] = useState('');

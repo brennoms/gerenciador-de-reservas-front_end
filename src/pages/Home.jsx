@@ -1,8 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-import '../styles/displays.css';
-import '../styles/buttons.css';
-
 export default function Home() {
   const navigate = useNavigate();
 

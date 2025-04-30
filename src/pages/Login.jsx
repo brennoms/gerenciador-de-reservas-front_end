@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../contexts/AuthContext';
-import '../styles/displays.css';
-import '../styles/buttons.css';
-import '../styles/text-format.css';
 
 export default function Login() {
   const navigate = useNavigate();
