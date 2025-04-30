@@ -37,7 +37,7 @@ export default function Login() {
   return (
     <div className="flex column-center min-height-80vh">
       <form onSubmit={handleSubmit} className="flex column-center gap-1">
-        <h1>Login</h1>
+        <h1>Entrar</h1>
 
         <input
           type="email"
@@ -57,7 +57,7 @@ export default function Login() {
 
         <p className="alert">{alert}</p>
         <button type="submit" className="button1">
-          Entrar
+          Continuar
         </button>
       </form>
     </div>
