@@ -29,14 +29,6 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/:userId/properties/:id"
-          element={
-            <ProtectedRoute>
-              <p>Imovel</p>
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/:userId/properties/add"
           element={
             <ProtectedRoute>
@@ -46,6 +38,14 @@ export default function AppRoutes() {
         />
         <Route
           path="/:userId/properties/remove"
+          element={
+            <ProtectedRoute>
+              <PropertiesRemove />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/:userId/properties/:propertyId"
           element={
             <ProtectedRoute>
               <PropertiesRemove />
