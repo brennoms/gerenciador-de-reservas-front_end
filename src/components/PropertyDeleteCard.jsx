@@ -15,7 +15,7 @@ export default function PropertyCard({ property, onDelete }) {
   }
 
   return (
-    <div className="background-lightgray pad-1rem border-radius-1rem">
+    <div className="flex column-center background-lightgray pad-1rem border-radius-1rem width20p">
       <img src={property.image} alt={property.name} />
       <h2>{property.name}</h2>
       <button onClick={exclude}>Excluir</button>
