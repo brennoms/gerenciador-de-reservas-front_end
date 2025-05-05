@@ -11,3 +11,17 @@ export async function registerUser(name, email, pass) {
     return { result: false, message: error?.response?.data?.erro };
   }
 }
+
+export async function getUser(token) {
+  try {
+    const res = await api.get('/usuarios/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
