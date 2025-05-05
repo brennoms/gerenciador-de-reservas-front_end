@@ -26,7 +26,7 @@ export default function Properties() {
 
   return (
     <div>
-      <h1>Imóveis Disponíveis</h1>
+      <h1 className="text-center">Imóveis Disponíveis</h1>
       <div className="display-grid gap-2rem">
         {properties.map(property => (
           <PropertyCard key={property.id} property={property} />
