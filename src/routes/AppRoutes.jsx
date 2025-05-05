@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import ProtectedRoute from './ProtectedRoute';
 import PublicLayout from '../layouts/PublicLayout';
@@ -7,17 +7,6 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Properties from '../pages/Properties';
-
-const privateRoutes = {
-  properties: {
-    path: '/properties',
-    element: (
-      <ProtectedRoute>
-        <Properties />
-      </ProtectedRoute>
-    ),
-  },
-};
 
 export default function AppRoutes() {
   return (
@@ -29,7 +18,38 @@ export default function AppRoutes() {
       </Route>
 
       <Route element={<PrivateLayout />}>
-        <Route path={privateRoutes.properties.path} element={privateRoutes.properties.element} />
+        <Route
+          path="/:user_id/properties"
+          element={
+            <ProtectedRoute>
+              <Properties />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/:user_id/properties/:id"
+          element={
+            <ProtectedRoute>
+              <p>Imovel</p>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/:user_id/properties/add"
+          element={
+            <ProtectedRoute>
+              <p>Adicionar</p>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/:user_id/properties/remove"
+          element={
+            <ProtectedRoute>
+              <p>Remover</p>
+            </ProtectedRoute>
+          }
+        />
       </Route>
     </Routes>
   );

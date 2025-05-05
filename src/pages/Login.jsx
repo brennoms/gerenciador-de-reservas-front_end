@@ -13,8 +13,9 @@ export default function Login() {
 
   useEffect(() => {
     async function checkToken() {
-      if (await verifyStorageToken()) {
-        navigate('/properties', { replace: true });
+      const userId = await verifyStorageToken();
+      if (userId) {
+        navigate(`/${userId}/properties`, { replace: true });
       }
     }
     checkToken();
@@ -23,10 +24,10 @@ export default function Login() {
   const handleSubmit = e => {
     e.preventDefault();
     login({ email, pass }).then(res => {
-      if (res !== true) {
-        setAlert(res);
+      if (res.erro) {
+        setAlert(res.erro);
       } else {
-        navigate('/properties', { replace: true });
+        navigate(`/${res}/properties`, { replace: true });
       }
     });
   };

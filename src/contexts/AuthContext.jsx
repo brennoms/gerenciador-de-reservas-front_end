@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
 import { loginService, verifyService } from '../services/authService';
+import { getUser } from '../services/userService';
 
 const AuthContext = createContext();
 
@@ -10,6 +11,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     verifyStorageToken();
@@ -17,15 +19,18 @@ export function AuthProvider({ children }) {
 
   async function verifyStorageToken() {
     const storedToken = JSON.parse(localStorage.getItem('token'));
+    const storedUserId = localStorage.getItem('userId');
     if (storedToken) {
       const res = await verifyService(storedToken);
       if (!res) {
         localStorage.removeItem('token');
         setToken(null);
+        setUserId(null);
         return false;
       } else {
         setToken(storedToken);
-        return true;
+        setUserId(storedUserId);
+        return storedUserId;
       }
     }
   }
@@ -33,20 +38,25 @@ export function AuthProvider({ children }) {
   async function login(userData) {
     const res = await loginService(userData.email, userData.pass);
     if (!res.token) {
-      return res.erro;
+      return res;
     }
+    const { _id: userId } = await getUser(res.token);
     localStorage.setItem('token', JSON.stringify(res.token));
+    localStorage.setItem('userId', userId);
     setToken(res.token);
-    return true;
+    setUserId(userId);
+    return userId;
   }
 
   function logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     setToken(null);
+    setUserId(null);
   }
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, verifyStorageToken }}>
+    <AuthContext.Provider value={{ token, userId, login, logout, verifyStorageToken }}>
       {children}
     </AuthContext.Provider>
   );
