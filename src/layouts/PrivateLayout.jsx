@@ -1,12 +1,18 @@
-import { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useState, createContext, useContext } from 'react';
+import { Outlet, useNavigate, Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 import { useAuth } from '../contexts/AuthContext';
-
 import './PrivateLayout.css';
 
+const SideBarContext = createContext();
+
+export function useSideBarContext() {
+  return useContext(SideBarContext);
+}
+
 export default function PrivateLayout() {
+  const [options, setOptions] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { logout } = useAuth();
@@ -25,9 +31,11 @@ export default function PrivateLayout() {
           </button>
           <div className={`div-links ${isOpen ? 'show' : 'hide'}`}>
             <div className="links">
-              <li>🏠 exemplo1</li>
-              <li>📅 exemplo2</li>
-              <li>👤 exemplo3</li>
+              {options.map(option => (
+                <Link to={option.path} key={option.name}>
+                  {option.name}
+                </Link>
+              ))}
             </div>
             <button className="button1" type="button" onClick={exit}>
               Sair
@@ -38,7 +46,9 @@ export default function PrivateLayout() {
 
       <div>
         <main>
-          <Outlet /> {/* Aqui entram as páginas privadas */}
+          <SideBarContext.Provider value={{ options, setOptions }}>
+            <Outlet />
+          </SideBarContext.Provider>
         </main>
       </div>
     </div>
