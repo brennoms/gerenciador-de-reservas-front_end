@@ -30,3 +30,8 @@
 .display-grid.gap-2rem {
   gap: 2rem;
 }
+
+.size100 {
+  width: 100%;
+  height: 100%;
+}
