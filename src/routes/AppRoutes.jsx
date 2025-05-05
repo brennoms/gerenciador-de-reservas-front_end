@@ -8,6 +8,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Properties from '../pages/Properties';
 import PropertiesAdd from '../pages/PropertiesAdd';
+import PropertiesRemove from '../pages/PropertiesRemove';
 
 export default function AppRoutes() {
   return (
@@ -47,7 +48,7 @@ export default function AppRoutes() {
           path="/:userId/properties/remove"
           element={
             <ProtectedRoute>
-              <p>Remover</p>
+              <PropertiesRemove />
             </ProtectedRoute>
           }
         />
