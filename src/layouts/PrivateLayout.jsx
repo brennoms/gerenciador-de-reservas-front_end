@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 import { useAuth } from '../contexts/AuthContext';
