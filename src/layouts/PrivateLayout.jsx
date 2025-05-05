@@ -44,8 +44,8 @@ export default function PrivateLayout() {
         </div>
       </div>
 
-      <div>
-        <main>
+      <div className="size100">
+        <main className="size100">
           <SideBarContext.Provider value={{ options, setOptions }}>
             <Outlet />
           </SideBarContext.Provider>
