@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import { Outlet, useNavigate, Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
@@ -21,6 +21,10 @@ export default function PrivateLayout() {
     navigate('/');
     setTimeout(() => logout(), 500);
   }
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [options]);
 
   return (
     <div className="flex">
