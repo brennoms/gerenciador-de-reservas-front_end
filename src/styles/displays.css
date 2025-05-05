@@ -35,3 +35,9 @@
   width: 100%;
   height: 100%;
 }
+
+.marborpad0 {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
