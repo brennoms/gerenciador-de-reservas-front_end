@@ -7,6 +7,7 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Properties from '../pages/Properties';
+import PropertiesAdd from '../pages/PropertiesAdd';
 
 export default function AppRoutes() {
   return (
@@ -19,7 +20,7 @@ export default function AppRoutes() {
 
       <Route element={<PrivateLayout />}>
         <Route
-          path="/:user_id/properties"
+          path="/:userId/properties"
           element={
             <ProtectedRoute>
               <Properties />
@@ -27,7 +28,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/:user_id/properties/:id"
+          path="/:userId/properties/:id"
           element={
             <ProtectedRoute>
               <p>Imovel</p>
@@ -35,15 +36,15 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/:user_id/properties/add"
+          path="/:userId/properties/add"
           element={
             <ProtectedRoute>
-              <p>Adicionar</p>
+              <PropertiesAdd />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/:user_id/properties/remove"
+          path="/:userId/properties/remove"
           element={
             <ProtectedRoute>
               <p>Remover</p>
