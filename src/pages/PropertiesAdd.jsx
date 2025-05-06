@@ -14,6 +14,7 @@ export default function PropertiesAdd() {
   const [name, setName] = useState('');
   const [adress, setAdress] = useState('');
   const [image, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
     setOptions([{ name: 'Voltar', path: `/${userId}/properties` }]);
@@ -21,7 +22,13 @@ export default function PropertiesAdd() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    addProperty({ name, adress, image }, token).then(res => {
+
+    const formData = new FormData();
+    formData.append('imagem', image);
+    formData.append('nome', name);
+    formData.append('endereco', adress);
+
+    addProperty(formData, token).then(res => {
       if (res !== true) {
         setAlert(JSON.stringify(res));
       } else {
@@ -45,9 +52,22 @@ export default function PropertiesAdd() {
           <input onChange={e => setAdress(e.target.value)} required />
         </div>
 
-        <div>
+        <div className="flex column-center gap-1">
           <p className="marborpad0">imagem:</p>
-          <input onChange={e => setImage(e.target.value)} required />
+          {previewUrl ? (
+            <img className="border-radius-1rem" src={previewUrl} alt="Preview" width="50%"></img>
+          ) : (
+            <></>
+          )}
+          <input
+            type="file"
+            onChange={e => {
+              setImage(e.target.files[0]);
+              const url = URL.createObjectURL(e.target.files[0]);
+              setPreviewUrl(url);
+            }}
+            required
+          />
         </div>
 
         <p className="alert">{alert}</p>

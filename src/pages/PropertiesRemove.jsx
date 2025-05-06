@@ -32,7 +32,7 @@ export default function Properties() {
   return (
     <div>
       <h1 className="text-center">Remover</h1>
-      <div className="display-grid gap-2rem">
+      <div className="display-grid gap-2rem pad-1rem">
         {properties.map(property => (
           <PropertyDeleteCard key={property.id} property={property} onDelete={reload} />
         ))}

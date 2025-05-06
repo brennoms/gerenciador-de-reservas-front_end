@@ -10,7 +10,7 @@ export async function listProperties(token) {
           id: imovel._id,
           name: imovel.nome,
           adress: imovel.endereco,
-          image: imovel.imagem,
+          imageUrl: imovel.imagem_url,
         });
       }
       return imoveis;
@@ -21,23 +21,20 @@ export async function listProperties(token) {
   }
 }
 
-export async function addProperty(data, token) {
-  const property = {
-    nome: data.name,
-    endereco: data.adress,
-    imagem: data.image,
-  };
+export async function addProperty(property, token) {
   try {
-    console.log(property);
     const res = await api.post('/imoveis', property, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
     });
     if (res.status === 200) {
       return true;
     }
   } catch (error) {
     console.log(error);
-    return error.response.data.erro;
+    return error.response.data.error;
   }
 }
 

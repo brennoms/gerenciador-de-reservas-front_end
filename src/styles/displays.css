@@ -39,6 +39,18 @@
 .width20p {
   width: 20%;
 }
+.width100p {
+  width: 100%;
+}
+
+.dinamic-card {
+  @media (min-width: 769px) {
+    width: 20%;
+  }
+  @media (max-width: 769px) {
+    width: 100%;
+  }
+}
 
 .marborpad0 {
   margin: 0;
