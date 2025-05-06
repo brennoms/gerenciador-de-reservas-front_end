@@ -21,6 +21,26 @@ export async function listProperties(token) {
   }
 }
 
+export async function getProperty(propertyId, token) {
+  try {
+    const res = await api.get(`/imoveis/${propertyId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.status === 200) {
+      return {
+        id: res.data._id,
+        userId: res.data.usuario_id,
+        name: res.data.nome,
+        imageUrl: res.data.imagem_url,
+        adress: res.data.endereco,
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
 export async function addProperty(property, token) {
   try {
     const res = await api.post('/imoveis', property, {
