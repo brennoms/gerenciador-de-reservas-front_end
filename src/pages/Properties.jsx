@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import PropertyCard from '../components/PropertyCard';
 import { useSideBarContext } from '../layouts/PrivateLayout';
@@ -7,15 +7,15 @@ import { useAuth } from '../contexts/AuthContext';
 import { listProperties } from '../services/propertiesService';
 
 export default function Properties() {
-  const { userId } = useParams();
+  const location = useLocation();
   const { setOptions } = useSideBarContext();
   const { token } = useAuth();
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
     setOptions([
-      { name: 'Adicionar Imovel', path: `/${userId}/properties/add` },
-      { name: 'Remover Imovel', path: `/${userId}/properties/remove` },
+      { name: 'Adicionar Imovel', path: `${location.pathname}/add` },
+      { name: 'Remover Imovel', path: `${location.pathname}/remove` },
     ]);
     listProperties(token).then(res => {
       if (res !== false) {

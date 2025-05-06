@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { addProperty } from '../services/propertiesService';
 import { useAuth } from '../contexts/AuthContext';
@@ -7,7 +7,6 @@ import { useSideBarContext } from '../layouts/PrivateLayout';
 
 export default function PropertiesAdd() {
   const navigate = useNavigate();
-  const { userId } = useParams();
   const { setOptions } = useSideBarContext();
   const { token } = useAuth();
   const [alert, setAlert] = useState('');
@@ -17,7 +16,7 @@ export default function PropertiesAdd() {
   const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
-    setOptions([{ name: 'Voltar', path: `/${userId}/properties` }]);
+    setOptions([{ name: 'Voltar', path: -1 }]);
   }, []);
 
   function handleSubmit(e) {
