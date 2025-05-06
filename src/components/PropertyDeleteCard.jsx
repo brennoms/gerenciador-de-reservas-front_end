@@ -18,7 +18,9 @@ export default function PropertyCard({ property, onDelete }) {
     <div className=" dinamic-card flex column-center background-lightgray pad-1rem border-radius-1rem">
       <img src={property.imageUrl} alt={property.name} className="width100p border-radius-1rem" />
       <h2>{property.name}</h2>
-      <button onClick={exclude}>Excluir</button>
+      <button className="button1" onClick={exclude}>
+        Excluir
+      </button>
     </div>
   );
 }

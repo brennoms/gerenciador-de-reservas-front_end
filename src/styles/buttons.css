@@ -10,3 +10,13 @@
 .button1:hover {
   background-color: #005f87;
 }
+
+.button-card {
+  appearance: none;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.button-card:hover {
+  background-color: gray;
+}
