@@ -6,6 +6,7 @@ import PrivateLayout from '../layouts/PrivateLayout';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+import Property from '../pages/Property';
 import Properties from '../pages/Properties';
 import PropertiesAdd from '../pages/PropertiesAdd';
 import PropertiesRemove from '../pages/PropertiesRemove';
@@ -48,7 +49,7 @@ export default function AppRoutes() {
           path="/:userId/properties/:propertyId"
           element={
             <ProtectedRoute>
-              <PropertiesRemove />
+              <Property />
             </ProtectedRoute>
           }
         />
