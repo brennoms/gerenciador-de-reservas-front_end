@@ -33,11 +33,12 @@ export default function Login() {
   };
 
   return (
-    <div className="flex column-center min-height-80vh">
-      <form onSubmit={handleSubmit} className="flex column-center gap-1">
-        <h1>Entrar</h1>
+    <div className="flex items-center justify-center min-h-screen">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center gap-1">
+        <h1 className="pb-4 font-bold text-5xl text-center cursor-default">Entrar</h1>
 
         <input
+          className="login-entry"
           type="email"
           value={email}
           placeholder="e-mail"
@@ -46,6 +47,7 @@ export default function Login() {
         />
 
         <input
+          className="login-entry"
           type="password"
           value={pass}
           placeholder="senha"
@@ -54,7 +56,7 @@ export default function Login() {
         />
 
         <p className="alert">{alert}</p>
-        <button type="submit" className="button1">
+        <button type="submit" className="default-button w-full m-1">
           Continuar
         </button>
       </form>
