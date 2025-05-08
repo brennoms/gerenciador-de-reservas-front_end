@@ -4,11 +4,11 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex column-center gap-1 min-height-80vh">
-      <button className="button1" onClick={() => navigate('/login')}>
+    <div className="flex min-h-screen flex-col items-center gap-1 justify-center">
+      <button className="default-button" onClick={() => navigate('/login')}>
         Entrar
       </button>
-      <button className="button1" onClick={() => navigate('/register')}>
+      <button className="default-button" onClick={() => navigate('/register')}>
         Cadastrar
       </button>
     </div>
