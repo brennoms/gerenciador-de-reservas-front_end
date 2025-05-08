@@ -34,7 +34,7 @@ export default function Carrousel({ cards, initialCard, className }) {
         {cards}
       </Slider>
 
-      <div className="flex justify-around">
+      <div className="justify-around hidden sm:flex">
         <button className="" onClick={() => sliderRef.current.slickPrev()}>
           &lt;
         </button>
