@@ -31,6 +31,7 @@ export function PropertyProvider({ children }) {
         setYear,
         property,
         setProperty,
+        propertyId,
         selectedDates,
         setSelectedDates,
         yearCalendar,
