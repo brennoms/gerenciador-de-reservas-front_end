@@ -1,7 +1,7 @@
 import { removeProperty } from '../services/propertiesService';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function PropertyCard({ property, onDelete }) {
+export default function PropertyCard({ property, onDelete, className }) {
   const { token } = useAuth();
 
   function exclude() {
@@ -15,12 +15,14 @@ export default function PropertyCard({ property, onDelete }) {
   }
 
   return (
-    <div className=" dinamic-card flex column-center background-lightgray pad-1rem border-radius-1rem">
-      <img src={property.imageUrl} alt={property.name} className="width100p border-radius-1rem" />
-      <h2>{property.name}</h2>
-      <button className="button1" onClick={exclude}>
-        Excluir
-      </button>
+    <div className={className ? `${className}` : 'w-fit'}>
+      <div className="flex flex-col items-center bg-gray-400 shadow-md rounded">
+        <img src={property.imageUrl} alt={property.name} className="rounded" />
+        <h2>{property.name}</h2>
+        <button className="default-button mb-2 mt-1" onClick={exclude}>
+          Excluir
+        </button>
+      </div>
     </div>
   );
 }

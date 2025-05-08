@@ -28,11 +28,16 @@ export default function Properties() {
   }
 
   return (
-    <div>
-      <h1 className="text-center">Remover</h1>
-      <div className="display-grid gap-2rem pad-1rem">
+    <div className="w-full h-full">
+      <h1 className="default-h1">Remover</h1>
+      <div className="flex flex-wrap justify-center sm:justify-start min-w-full h-full">
         {properties.map(property => (
-          <PropertyDeleteCard key={property.id} property={property} onDelete={reload} />
+          <PropertyDeleteCard
+            className={'w-11/12 sm:w-1/2 lg:w-1/3 p-1 sm:p-2'}
+            key={property.id}
+            property={property}
+            onDelete={reload}
+          />
         ))}
       </div>
     </div>

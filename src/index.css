@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .default-button {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+  }
+  .login-entry {
+    @apply border border-gray-700 p-3 shadow-md placeholder:text-base border-gray-300 rounded-lg w-full focus:scale-105 ease-in-out duration-300;
+  }
+  .comum-entry {
+    @apply border border-gray-700 p-3 shadow-md placeholder:text-base border-gray-300 rounded-lg w-full;
+  }
+  .default-h1 {
+    @apply text-center text-3xl m-4;
+  }
+}

@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-export default function Carrousel({ cards, initialCard }) {
+export default function Carrousel({ cards, initialCard, className }) {
   const sliderRef = useRef(null);
   const isMobile = window.innerWidth < 768;
 
@@ -29,16 +29,16 @@ export default function Carrousel({ cards, initialCard }) {
   };
 
   return (
-    <div className="div-carrousel">
-      <Slider className="slider" ref={sliderRef} {...settings}>
+    <div className={`${className}`}>
+      <Slider ref={sliderRef} {...settings}>
         {cards}
       </Slider>
 
-      <div className="arrows">
-        <button className="arrow" onClick={() => sliderRef.current.slickPrev()}>
+      <div className="flex justify-around">
+        <button className="" onClick={() => sliderRef.current.slickPrev()}>
           &lt;
         </button>
-        <button className="arrow" onClick={() => sliderRef.current.slickNext()}>
+        <button className="" onClick={() => sliderRef.current.slickNext()}>
           &gt;
         </button>
       </div>

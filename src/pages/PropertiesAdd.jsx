@@ -37,28 +37,25 @@ export default function PropertiesAdd() {
   }
 
   return (
-    <div className="flex column-center size100">
-      <form onSubmit={handleSubmit} className="flex column-center gap-1">
-        <h1>Imovel</h1>
+    <div className="flex items-center justify-center w-full">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center max-h-full max-w-min">
+        <h1 className="default-h1">Imovel</h1>
 
         <div>
-          <p className="marborpad0">nome:</p>
-          <input onChange={e => setName(e.target.value)} required />
+          <p>nome:</p>
+          <input className="comum-entry" onChange={e => setName(e.target.value)} required />
         </div>
 
         <div>
-          <p className="marborpad0">endereço:</p>
-          <input onChange={e => setAdress(e.target.value)} required />
+          <p>endereço:</p>
+          <input className="comum-entry" onChange={e => setAdress(e.target.value)} required />
         </div>
 
-        <div className="flex column-center gap-1">
-          <p className="marborpad0">imagem:</p>
-          {previewUrl ? (
-            <img className="border-radius-1rem" src={previewUrl} alt="Preview" width="50%"></img>
-          ) : (
-            <></>
-          )}
+        <div className="flex flex-col items-center">
+          <p>imagem:</p>
+          {previewUrl ? <img className="rounded p-2" src={previewUrl} alt="Preview"></img> : <></>}
           <input
+            className="block cursor-pointer appearance-none rounded border border-gray-200 bg-white px-3 py-2 text-sm"
             type="file"
             onChange={e => {
               setImage(e.target.files[0]);
@@ -70,8 +67,8 @@ export default function PropertiesAdd() {
         </div>
 
         <p className="alert">{alert}</p>
-        <button type="submit" className="button1">
-          Continuar
+        <button type="submit" className="default-button my-2">
+          Confirmar
         </button>
       </form>
     </div>

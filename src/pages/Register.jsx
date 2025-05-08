@@ -29,11 +29,12 @@ export default function Register() {
   };
 
   return (
-    <div className="flex column-center min-height-80vh">
-      <form className="flex column-center gap-1" onSubmit={handleSubmit}>
-        <h1>Cadastro</h1>
+    <div className="flex items-center justify-center min-h-screen">
+      <form className="flex flex-col items-center justify-center gap-1" onSubmit={handleSubmit}>
+        <h1 className="pb-4 font-bold text-5xl text-center cursor-default">Cadastro</h1>
 
         <input
+          className="login-entry"
           type="text"
           placeholder="Nome"
           value={name}
@@ -42,6 +43,7 @@ export default function Register() {
         />
 
         <input
+          className="login-entry"
           type="email"
           placeholder="e-mail"
           value={email}
@@ -50,14 +52,16 @@ export default function Register() {
         />
 
         <input
+          className="login-entry"
           type="password"
-          placeholder="senha"
+          placeholder="nova senha"
           value={pass}
           onChange={e => setPass(e.target.value)}
           required
         />
 
         <input
+          className="login-entry"
           type="password"
           placeholder="confirmar senha"
           value={confirmPass}
@@ -66,7 +70,7 @@ export default function Register() {
         />
 
         <p className="alert">{alert}</p>
-        <button type="submit" className="button1">
+        <button type="submit" className="default-button w-full m-1">
           Continuar
         </button>
       </form>
