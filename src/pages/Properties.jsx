@@ -26,7 +26,7 @@ export default function Properties() {
 
   return (
     <div className="w-full h-full">
-      <h1 className="text-center text-3xl m-4">Imóveis Disponíveis</h1>
+      <h1 className="default-h1">Imóveis Disponíveis</h1>
       <div className="flex flex-wrap justify-center sm:justify-start min-w-full h-full">
         {properties.map(property => (
           <PropertyCard

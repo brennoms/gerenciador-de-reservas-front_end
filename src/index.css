@@ -12,4 +12,7 @@
   .comum-entry {
     @apply border border-gray-700 p-3 shadow-md placeholder:text-base border-gray-300 rounded-lg w-full;
   }
+  .default-h1 {
+    @apply text-center text-3xl m-4;
+  }
 }

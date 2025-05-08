@@ -39,7 +39,7 @@ export default function PropertiesAdd() {
   return (
     <div className="flex items-center justify-center w-full">
       <form onSubmit={handleSubmit} className="flex flex-col items-center max-h-full max-w-min">
-        <h1 className="text-center text-3xl m-4">Imovel</h1>
+        <h1 className="default-h1">Imovel</h1>
 
         <div>
           <p>nome:</p>
