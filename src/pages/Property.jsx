@@ -13,7 +13,6 @@ export default function Property() {
   const { token } = useAuth();
   const [property, setProperty] = useState(null);
   const [year] = useState(new Date().getFullYear());
-  const [calendars, setCalendars] = useState([]);
 
   useEffect(() => {
     setOptions([{ name: 'voltar', path: -1 }]);
@@ -21,10 +20,6 @@ export default function Property() {
       setProperty(res);
     });
   }, []);
-
-  useEffect(() => {
-    setCalendars(CalendarYear({ year }));
-  }, [year]);
 
   return (
     <div className="max-w-full h-full pr-3">
@@ -42,8 +37,7 @@ export default function Property() {
       <hr className="border" />
       <div className="flex flex-col sm:flex-row max-w-full max-h-fit p-2">
         <div className="w-full sm:w-1/2">
-          <p className="text-center">{year}</p>
-          <Carrousel cards={calendars} initialCard={new Date().getMonth()} />
+          <CalendarYear year={year} />
         </div>
         <div className="bg-blue-500 w-full sm:w-1/2">
           <p>detalhes da reserva</p>

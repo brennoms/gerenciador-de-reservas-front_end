@@ -32,10 +32,14 @@ export default function CalendarYear({ year }) {
     ],
   };
 
-  const calendar = [];
-  for (const month of months.year) {
-    calendar.push(<CalendarMonth month={month} />);
-  }
+  const calendarCards = months[year].map(month => (
+    <CalendarMonth key={month.number} month={month} />
+  ));
 
-  return calendar;
+  return (
+    <>
+      <p className="text-center">{year}</p>
+      <Carrousel cards={calendarCards} initialCard={new Date().getMonth()} />
+    </>
+  );
 }
