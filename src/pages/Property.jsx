@@ -1,24 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
-import { useAuth } from '../contexts/AuthContext';
 import { useSideBarContext } from '../layouts/PrivateLayout';
-import { getProperty } from '../services/propertiesService';
-import Carrousel from '../components/Carrousel';
+import { useProperty } from '../contexts/PropertyContext';
 import CalendarYear from '../components/CalendarYear';
 
 export default function Property() {
-  const { propertyId } = useParams();
   const { setOptions } = useSideBarContext();
-  const { token } = useAuth();
-  const [property, setProperty] = useState(null);
-  const [year] = useState(new Date().getFullYear());
+  const { property, year } = useProperty();
 
   useEffect(() => {
     setOptions([{ name: 'voltar', path: -1 }]);
-    getProperty(propertyId, token).then(res => {
-      setProperty(res);
-    });
   }, []);
 
   return (
