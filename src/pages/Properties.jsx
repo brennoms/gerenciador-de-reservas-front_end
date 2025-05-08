@@ -25,11 +25,15 @@ export default function Properties() {
   }, []);
 
   return (
-    <div>
-      <h1 className="text-center">Imóveis Disponíveis</h1>
-      <div className="display-grid gap-2rem pad-1rem">
+    <div className="w-full h-full">
+      <h1 className="text-center text-3xl m-4">Imóveis Disponíveis</h1>
+      <div className="flex flex-wrap justify-center sm:justify-start min-w-full h-full">
         {properties.map(property => (
-          <PropertyCard key={property.id} property={property} />
+          <PropertyCard
+            className="w-11/12 sm:w-1/2 lg:w-1/3 p-1 sm:p-2"
+            key={property.id}
+            property={property}
+          />
         ))}
       </div>
     </div>
