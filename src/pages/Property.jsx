@@ -52,7 +52,7 @@ export default function Property() {
             <div className="w-full sm:w-1/2 2xl:w-1/3">
               <p className="default-h1 text-2xl">detalhes da reserva</p>
               <pre className=" p-5">
-                <code>{JSON.stringify(selectedDates[0]).replace(/[{},]/g, '\n')}</code>
+                <code>{JSON.stringify(selectedDates[0])?.replace(/[{},]/g, '\n')}</code>
               </pre>
             </div>
           </div>
