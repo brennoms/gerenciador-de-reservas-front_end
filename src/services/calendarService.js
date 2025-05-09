@@ -10,11 +10,22 @@ export async function GetRestrictCalendar(year, propertyId, token) {
       for (const month of res.data) {
         const days = [];
         for (const day of month.dias) {
+          const reservation = day.reserva
+            ? {
+                userId: day.reserva.usuario_id,
+                propertyId: day.reserva.imovel_id,
+                name: day.reserva.nome,
+                contact: day.reserva.contato,
+                inityDate: day.reserva.data_inicio,
+                endDate: day.reserva.data_fim,
+              }
+            : undefined;
           days.push({
             date: day.date,
             number: day.dia,
             holiday: day.feriado,
             currentDay: day.dia_atual,
+            reservation,
           });
         }
         year.push({
@@ -28,7 +39,7 @@ export async function GetRestrictCalendar(year, propertyId, token) {
     }
     return res.erro;
   } catch (error) {
-    console.log(error.response);
+    console.log(error);
     return { error: error, ok: false };
   }
 }
