@@ -1,24 +1,11 @@
-import { useEffect, useState } from 'react';
 import { StepBack, StepForward } from 'lucide-react';
 
 import CalendarMonth from './CalendarMonth';
 import Carrousel from './Carrousel';
-import { GetRestrictCalendar } from '../services/calendarService';
 import { useProperty } from '../contexts/PropertyContext';
-import { useAuth } from '../contexts/AuthContext';
 
 export default function CalendarYear({ carrousel, click }) {
-  const { token } = useAuth();
-  const { year, setYear, propertyId } = useProperty();
-  const [calendar, setCalendar] = useState([]);
-
-  useEffect(() => {
-    GetRestrictCalendar(year, propertyId, token).then(res => {
-      if (res?.ok) {
-        setCalendar(res.data || []);
-      }
-    });
-  }, [year]);
+  const { year, setYear, calendar } = useProperty();
 
   function decreaseYear() {
     if (!(year - 1 < 2000)) {
