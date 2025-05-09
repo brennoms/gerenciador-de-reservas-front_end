@@ -21,12 +21,12 @@ export default function CalendarYear({ carrousel, click }) {
   }, [year]);
 
   function decreaseYear() {
-    setYear(year - 1);
+    if (!(year - 1 < 2000)) {
+      setYear(year - 1);
+    }
   }
   function increaseYear() {
-    if (!(year - 1 < 2000)) {
-      setYear(year + 1);
-    }
+    setYear(year + 1);
   }
 
   return (
