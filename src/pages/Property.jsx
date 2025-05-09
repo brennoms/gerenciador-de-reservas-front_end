@@ -1,34 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
-import { useAuth } from '../contexts/AuthContext';
 import { useSideBarContext } from '../layouts/PrivateLayout';
-import { getProperty } from '../services/propertiesService';
-import Carrousel from '../components/Carrousel';
-import MonthCalendar from '../components/MonthCalendar';
+import { useProperty } from '../contexts/PropertyContext';
+import CalendarYear from '../components/CalendarYear';
 
 export default function Property() {
-  const { propertyId } = useParams();
   const { setOptions } = useSideBarContext();
-  const { token } = useAuth();
-  const [property, setProperty] = useState(null);
-  const [year] = useState(new Date().getFullYear());
-  const [calendars, setCalendars] = useState([]);
+  const { property, year, selectedDates, setSelectedDates } = useProperty();
 
   useEffect(() => {
     setOptions([{ name: 'voltar', path: -1 }]);
-    getProperty(propertyId, token).then(res => {
-      setProperty(res);
-    });
   }, []);
 
-  useEffect(() => {
-    const list = [];
-    for (let i = 1; i < 13; i++) {
-      list.push(<MonthCalendar month={i} />);
-    }
-    setCalendars(list);
-  }, [year]);
+  function selectDate(day) {
+    setSelectedDates([day]);
+  }
 
   return (
     <div className="max-w-full h-full pr-3">
@@ -45,12 +31,14 @@ export default function Property() {
       </div>
       <hr className="border" />
       <div className="flex flex-col sm:flex-row max-w-full max-h-fit p-2">
-        <div className="bg-red-500 w-full sm:w-1/2">
-          <p className="text-center">{year}</p>
-          <Carrousel cards={calendars} initialCard={new Date().getMonth()} />
+        <div className="w-full sm:w-1/2 2xl:w-2/3">
+          <CalendarYear year={year} carrousel={window.innerWidth < 1285} click={selectDate} />
         </div>
-        <div className="bg-blue-500 w-full sm:w-1/2">
-          <p>detalhes da reserva</p>
+        <div className="w-full sm:w-1/2 2xl:w-1/3">
+          <p className="default-h1 text-2xl">detalhes da reserva</p>
+          <pre className=" p-5">
+            <code>{JSON.stringify(selectedDates[0]).replace(/[{},]/g, '\n')}</code>
+          </pre>
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ import Property from '../pages/Property';
 import Properties from '../pages/Properties';
 import PropertiesAdd from '../pages/PropertiesAdd';
 import PropertiesRemove from '../pages/PropertiesRemove';
+import { PropertyProvider } from '../contexts/PropertyContext';
 
 export default function AppRoutes() {
   return (
@@ -48,9 +49,11 @@ export default function AppRoutes() {
         <Route
           path="/:userId/properties/:propertyId"
           element={
-            <ProtectedRoute>
-              <Property />
-            </ProtectedRoute>
+            <PropertyProvider>
+              <ProtectedRoute>
+                <Property />
+              </ProtectedRoute>
+            </PropertyProvider>
           }
         />
       </Route>
