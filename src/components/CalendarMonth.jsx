@@ -6,10 +6,10 @@ export default function MonthCalendar({ month, click }) {
   function format(day) {
     let css = '';
     if (day.holiday) {
-      css += ' bg-blue-500';
+      css += ' text-red-500';
     }
     if (day.currentDay) {
-      css += ' bg-red-300';
+      css += ' border border-black';
     }
     if (
       day.date.split('-')[1] < month.monthNumber + 1 ||
@@ -21,7 +21,9 @@ export default function MonthCalendar({ month, click }) {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div
+      className={`flex flex-col items-center pb-2 ${month.monthNumber === new Date().getMonth() ? 'bg-black/10 rounded' : ''}`}
+    >
       <p>{month.monthName}</p>
       <div className={`grid grid-cols-7 gap-1 w-11/12`}>
         <p className="text-center">dom</p>
@@ -33,7 +35,7 @@ export default function MonthCalendar({ month, click }) {
         <p className="text-center">sab</p>
         {month.days.map(day => (
           <button
-            className={`rounded aspect-square border border-black p-1 ${selectedDates.includes(day.date) ? 'bg-blue-400' : ''} ${format(day)} bg-white`}
+            className={`rounded aspect-square p-1 bg-white ${format(day)} ${selectedDates.includes(day.date) ? 'bg-blue-400' : ''}`}
             key={day.date}
             type="button"
             onClick={() => click(day)}
