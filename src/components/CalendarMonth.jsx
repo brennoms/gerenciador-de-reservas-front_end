@@ -6,7 +6,7 @@ export default function MonthCalendar({ month, click }) {
   function format(day) {
     let css = '';
     if (day.reservation) {
-      if (selectedDates.includes(day.date)) {
+      if (selectedDates.some(date => date.date === day.date)) {
         css += ' bg-yellow-500';
       } else {
         css += ' bg-yellow-400';
@@ -42,7 +42,7 @@ export default function MonthCalendar({ month, click }) {
         <p className="text-center">sab</p>
         {month.days.map(day => (
           <button
-            className={`rounded aspect-square p-1 bg-white ${format(day)} ${selectedDates.includes(day.date) ? 'bg-blue-400' : ''}`}
+            className={`rounded aspect-square p-1 bg-white ${format(day)} ${selectedDates.some(date => date.date === day.date) ? 'bg-blue-400' : ''}`}
             key={day.date}
             type="button"
             onClick={() => click(day)}

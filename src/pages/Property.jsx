@@ -6,14 +6,14 @@ import CalendarYear from '../components/CalendarYear';
 
 export default function Property() {
   const { setOptions } = useSideBarContext();
-  const { property, year, setSelectedDates } = useProperty();
+  const { property, year, selectedDates, setSelectedDates } = useProperty();
 
   useEffect(() => {
     setOptions([{ name: 'voltar', path: -1 }]);
   }, []);
 
   function selectDate(day) {
-    setSelectedDates([day.date]);
+    setSelectedDates([day]);
   }
 
   return (
@@ -34,8 +34,11 @@ export default function Property() {
         <div className="w-full sm:w-1/2 2xl:w-2/3">
           <CalendarYear year={year} carrousel={window.innerWidth < 1285} click={selectDate} />
         </div>
-        <div className="bg-blue-500 w-full h-screen sm:w-1/2 2xl:w-1/3">
-          <p>detalhes da reserva</p>
+        <div className="w-full sm:w-1/2 2xl:w-1/3">
+          <p className="default-h1 text-2xl">detalhes da reserva</p>
+          <pre className=" p-5">
+            <code>{JSON.stringify(selectedDates[0]).replace(/[{},]/g, '\n')}</code>
+          </pre>
         </div>
       </div>
     </div>
