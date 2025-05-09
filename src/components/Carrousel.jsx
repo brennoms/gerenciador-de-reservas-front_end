@@ -1,5 +1,6 @@
 import { React, useRef } from 'react';
 import Slider from 'react-slick';
+import { StepBack, StepForward } from 'lucide-react';
 
 // Importando os estilos obrigatórios do slick
 import 'slick-carousel/slick/slick.css';
@@ -36,10 +37,10 @@ export default function Carrousel({ cards, initialCard, className }) {
 
       <div className="justify-around hidden sm:flex">
         <button className="" onClick={() => sliderRef.current.slickPrev()}>
-          &lt;
+          <StepBack />
         </button>
         <button className="" onClick={() => sliderRef.current.slickNext()}>
-          &gt;
+          <StepForward />
         </button>
       </div>
     </div>

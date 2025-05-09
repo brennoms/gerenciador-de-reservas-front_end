@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { StepBack, StepForward } from 'lucide-react';
 
 import CalendarMonth from './CalendarMonth';
 import Carrousel from './Carrousel';
@@ -21,7 +22,15 @@ export default function CalendarYear({ carrousel, click }) {
 
   return (
     <div className="bg-gray-300 rounded pb-2">
-      <p className="text-center pt-2">{year}</p>
+      <div className="flex items-center justify-around sm:justify-center pb-2 pt-2">
+        <button>
+          <StepBack />
+        </button>
+        <p className="text-center text-xl sm:default-h1">{year}</p>
+        <button>
+          <StepForward />
+        </button>
+      </div>
       {carrousel ? (
         <>
           <Carrousel
