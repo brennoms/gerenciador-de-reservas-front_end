@@ -5,6 +5,13 @@ export default function MonthCalendar({ month, click }) {
 
   function format(day) {
     let css = '';
+    if (day.reservation) {
+      if (selectedDates.includes(day.date)) {
+        css += ' bg-yellow-500';
+      } else {
+        css += ' bg-yellow-400';
+      }
+    }
     if (day.holiday) {
       css += ' text-red-500';
     }
