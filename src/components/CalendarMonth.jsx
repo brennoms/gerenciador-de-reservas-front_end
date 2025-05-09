@@ -22,7 +22,7 @@ export default function MonthCalendar({ month, click }) {
 
   return (
     <div
-      className={`flex flex-col items-center pb-2 ${month.monthNumber === new Date().getMonth() ? 'bg-black/10 rounded' : ''}`}
+      className={`flex flex-col items-center pb-2 ${month.days[15].date.slice(0, -3) === new Date().toISOString().split('T')[0].slice(0, -3) ? 'bg-black/10 rounded' : ''}`}
     >
       <p>{month.monthName}</p>
       <div className={`grid grid-cols-7 gap-1 w-11/12`}>
