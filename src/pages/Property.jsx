@@ -27,10 +27,10 @@ export default function Property() {
       </div>
       <hr className="border" />
       <div className="flex flex-col sm:flex-row max-w-full max-h-fit p-2">
-        <div className="w-full sm:w-1/2">
-          <CalendarYear year={year} />
+        <div className="w-full sm:w-1/2 2xl:w-2/3">
+          <CalendarYear year={year} carrousel={window.innerWidth < 1285} />
         </div>
-        <div className="bg-blue-500 w-full sm:w-1/2">
+        <div className="bg-blue-500 w-full h-screen sm:w-1/2 2xl:w-1/3">
           <p>detalhes da reserva</p>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { GetRestrictCalendar } from '../services/calendarService';
 import { useProperty } from '../contexts/PropertyContext';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function CalendarYear() {
+export default function CalendarYear({ carrousel }) {
   const { token } = useAuth();
   const { year, propertyId } = useProperty();
   const [calendar, setCalendar] = useState([]);
@@ -20,14 +20,24 @@ export default function CalendarYear() {
   }, []);
 
   return (
-    <>
-      <p className="text-center">{year}</p>
-      <Carrousel
-        cards={calendar.map(month => (
-          <CalendarMonth key={month.monthNumber} month={month} />
-        ))}
-        initialCard={new Date().getMonth()}
-      />
-    </>
+    <div className="bg-gray-300 rounded pb-2">
+      <p className="text-center pt-2">{year}</p>
+      {carrousel ? (
+        <>
+          <Carrousel
+            cards={calendar.map(month => (
+              <CalendarMonth key={month.monthNumber} month={month} />
+            ))}
+            initialCard={new Date().getMonth()}
+          />
+        </>
+      ) : (
+        <div className="flex flex-wrap gap-3 justify-center p-2">
+          {calendar.map(month => (
+            <CalendarMonth key={month.monthNumber} month={month} cardSize={'w-full'} />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
