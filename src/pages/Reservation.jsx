@@ -17,7 +17,21 @@ export default function Property() {
     if (selectedDates.length === 0) {
       setSelectedDates([day]);
     } else if (selectedDates.length === 1) {
-      setSelectedDates([...selectedDates, day]);
+      const dates = [];
+      let end;
+      let current;
+      if (selectedDates[0].date.split('-') <= day.date.split('-')) {
+        current = new Date(selectedDates[0].date);
+        end = new Date(day.date);
+      } else {
+        current = new Date(day.date);
+        end = new Date(selectedDates[0].date);
+      }
+      while (current <= end) {
+        dates.push({ date: current.toISOString().split('T')[0] });
+        current.setDate(current.getDate() + 1);
+      }
+      setSelectedDates(dates);
     } else {
       setSelectedDates([day]);
     }
