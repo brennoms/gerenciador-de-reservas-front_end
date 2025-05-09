@@ -1,6 +1,6 @@
 import { useProperty } from '../contexts/PropertyContext';
 
-export default function MonthCalendar({ month }) {
+export default function MonthCalendar({ month, click }) {
   const { selectedDates } = useProperty();
 
   function format(day) {
@@ -9,16 +9,13 @@ export default function MonthCalendar({ month }) {
       css += ' bg-blue-500';
     }
     if (day.currentDay) {
-      css += ' bg-blue-300';
+      css += ' bg-red-300';
     }
     if (
       day.date.split('-')[1] < month.monthNumber + 1 ||
       day.date.split('-')[1] > month.monthNumber + 1
     ) {
-      css += ' bg-gray-300 border-0';
-    }
-    if (selectedDates.includes(day.date)) {
-      css += ' ';
+      css += ' bg-transparent border-0';
     }
     return css;
   }
@@ -36,9 +33,10 @@ export default function MonthCalendar({ month }) {
         <p className="text-center">sab</p>
         {month.days.map(day => (
           <button
-            className={`rounded aspect-square border border-black p-1 ${format(day)} bg-white`}
+            className={`rounded aspect-square border border-black p-1 ${selectedDates.includes(day.date) ? 'bg-blue-400' : ''} ${format(day)} bg-white`}
             key={day.date}
             type="button"
+            onClick={() => click(day)}
           >
             {day.number}
           </button>

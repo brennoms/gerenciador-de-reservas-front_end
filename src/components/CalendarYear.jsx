@@ -6,7 +6,7 @@ import { GetRestrictCalendar } from '../services/calendarService';
 import { useProperty } from '../contexts/PropertyContext';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function CalendarYear({ carrousel }) {
+export default function CalendarYear({ carrousel, click }) {
   const { token } = useAuth();
   const { year, propertyId } = useProperty();
   const [calendar, setCalendar] = useState([]);
@@ -26,7 +26,7 @@ export default function CalendarYear({ carrousel }) {
         <>
           <Carrousel
             cards={calendar.map(month => (
-              <CalendarMonth key={month.monthNumber} month={month} />
+              <CalendarMonth key={month.monthNumber} month={month} click={click} />
             ))}
             initialCard={new Date().getMonth()}
           />
@@ -34,7 +34,7 @@ export default function CalendarYear({ carrousel }) {
       ) : (
         <div className="flex flex-wrap gap-3 justify-center p-2">
           {calendar.map(month => (
-            <CalendarMonth key={month.monthNumber} month={month} cardSize={'w-full'} />
+            <CalendarMonth key={month.monthNumber} month={month} click={click} />
           ))}
         </div>
       )}
