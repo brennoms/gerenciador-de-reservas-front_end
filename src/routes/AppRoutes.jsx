@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
+import { PropertyProvider } from '../contexts/PropertyContext';
 import ProtectedRoute from './ProtectedRoute';
 import PublicLayout from '../layouts/PublicLayout';
 import PrivateLayout from '../layouts/PrivateLayout';
@@ -10,7 +11,7 @@ import Property from '../pages/Property';
 import Properties from '../pages/Properties';
 import PropertiesAdd from '../pages/PropertiesAdd';
 import PropertiesRemove from '../pages/PropertiesRemove';
-import { PropertyProvider } from '../contexts/PropertyContext';
+import Reservation from '../pages/Reservation';
 
 export default function AppRoutes() {
   return (
@@ -49,13 +50,22 @@ export default function AppRoutes() {
         <Route
           path="/:userId/properties/:propertyId"
           element={
-            <PropertyProvider>
-              <ProtectedRoute>
+            <ProtectedRoute>
+              <PropertyProvider>
                 <Property />
-              </ProtectedRoute>
-            </PropertyProvider>
+              </PropertyProvider>
+            </ProtectedRoute>
           }
-        />
+        >
+          <Route
+            path="reservations"
+            element={
+              <ProtectedRoute>
+                <Reservation />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
       </Route>
     </Routes>
   );
