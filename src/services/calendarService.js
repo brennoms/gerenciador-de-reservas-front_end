@@ -10,7 +10,12 @@ export async function GetRestrictCalendar(year, propertyId, token) {
       for (const month of res.data) {
         const days = [];
         for (const day of month.dias) {
-          days.push({ date: day.date, number: day.dia });
+          days.push({
+            date: day.date,
+            number: day.dia,
+            holiday: day.feriado,
+            currentDay: day.dia_atual,
+          });
         }
         year.push({
           year: month.ano,
