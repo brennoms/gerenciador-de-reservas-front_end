@@ -20,6 +20,7 @@ export default function Property() {
     } else {
       setOptions([{ name: 'voltar', path: -1 }]);
     }
+    setSelectedDates([new Date().toISOString().split('T')[0]]);
   }, [location]);
 
   function selectDate(day) {
