@@ -24,6 +24,7 @@ export default function Property() {
   }, []);
 
   function selectDates(day) {
+    setMessage('');
     if (selectedDates.length === 0) {
       setSelectedDates([day]);
     } else if (selectedDates.length === 1) {
