@@ -78,7 +78,7 @@ export default function Property() {
                   <p>Fim da Estadia:</p>
                 </div>
                 {selectedDates[indexSelect]?.reservation ? (
-                  <div className="text-lg">
+                  <div className="text-lg whitespace-nowrap">
                     <p>{selectedDates[indexSelect].reservation.name || 'indefinido'}</p>
                     <p>{selectedDates[indexSelect].reservation.contact || 'indefinido'}</p>
                     <p>{selectedDates[indexSelect].reservation.deposit || 'indefinido'}</p>
