@@ -144,6 +144,7 @@ export default function Property() {
               <input
                 className="w-8"
                 value={' ' + selectedDates[0]?.date?.split('-')[2]}
+                onChange={() => {}}
                 placeholder="DD"
                 required
               />
@@ -151,6 +152,7 @@ export default function Property() {
               <input
                 className="w-8"
                 value={' ' + selectedDates[0]?.date?.split('-')[1]}
+                onChange={() => {}}
                 placeholder="MM"
                 required
               />
@@ -158,6 +160,7 @@ export default function Property() {
               <input
                 className="w-16"
                 value={' ' + selectedDates[0]?.date?.split('-')[0]}
+                onChange={() => {}}
                 placeholder="AAAA"
                 required
               />
@@ -168,6 +171,7 @@ export default function Property() {
               <input
                 className="w-8"
                 value={' ' + selectedDates[selectedDates.length - 1]?.date?.split('-')[2]}
+                onChange={() => {}}
                 placeholder="DD"
                 required
               />
@@ -175,6 +179,7 @@ export default function Property() {
               <input
                 className="w-8"
                 value={' ' + selectedDates[selectedDates.length - 1]?.date?.split('-')[1]}
+                onChange={() => {}}
                 placeholder="MM"
                 required
               />
@@ -182,6 +187,7 @@ export default function Property() {
               <input
                 className="w-16"
                 value={' ' + selectedDates[selectedDates.length - 1]?.date?.split('-')[0]}
+                onChange={() => {}}
                 placeholder="AAAA"
                 required
               />
