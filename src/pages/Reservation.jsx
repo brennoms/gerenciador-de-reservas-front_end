@@ -62,8 +62,8 @@ export default function Property() {
           <CalendarYear year={year} carrousel={window.innerWidth < 1285} click={selectDates} />
         </div>
         <div className="w-full sm:w-1/2 2xl:w-1/3 mt-4 flex flex-col items-center p-5">
-          {selectedDates.map(date => (
-            <>{verifyReservation(date)}</>
+          {selectedDates.map((date, index) => (
+            <div key={index}>{verifyReservation(date)}</div>
           ))}
 
           <form
