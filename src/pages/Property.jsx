@@ -26,7 +26,17 @@ export default function Property() {
   }, [location]);
 
   function selectDate(day) {
-    setSelectedDates([day]);
+    if (day.reservation) {
+      const dates = [];
+      let current = new Date(day.reservation.inityDate);
+      while (current <= new Date(day.reservation.endDate)) {
+        dates.push({ date: current.toISOString().split('T')[0] });
+        current.setDate(current.getDate() + 1);
+      }
+      setSelectedDates(dates);
+    } else {
+      setSelectedDates([day]);
+    }
   }
 
   return (
