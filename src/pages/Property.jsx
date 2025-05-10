@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { useSideBarContext } from '../layouts/PrivateLayout';
@@ -11,6 +11,7 @@ export default function Property() {
   const { setOptions } = useSideBarContext();
   const { property, year, selectedDates, setSelectedDates, reloadCalendar, setReloadCalendar } =
     useProperty();
+  const [indexSelect, setIndexSelect] = useState(0);
 
   useEffect(() => {
     if (!isChildRoute) {
@@ -30,7 +31,11 @@ export default function Property() {
       const dates = [];
       let current = new Date(day.reservation.inityDate);
       while (current <= new Date(day.reservation.endDate)) {
-        dates.push({ date: current.toISOString().split('T')[0] });
+        if (current.toISOString().split('T')[0] === day.date) {
+          setIndexSelect(dates.length);
+        }
+        const date = { ...day, date: current.toISOString().split('T')[0] };
+        dates.push(date);
         current.setDate(current.getDate() + 1);
       }
       setSelectedDates(dates);
@@ -64,7 +69,7 @@ export default function Property() {
             <div className="w-full sm:w-1/2 2xl:w-1/3">
               <p className="default-h1 text-2xl">detalhes da reserva</p>
               <pre className=" p-5">
-                <code>{JSON.stringify(selectedDates[0])?.replace(/[{},]/g, '\n')}</code>
+                <code>{JSON.stringify(selectedDates[indexSelect])?.replace(/[{},]/g, '\n')}</code>
               </pre>
             </div>
           </div>
