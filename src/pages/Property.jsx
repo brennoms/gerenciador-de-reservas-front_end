@@ -1,46 +1,118 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { useSideBarContext } from '../layouts/PrivateLayout';
 import { useProperty } from '../contexts/PropertyContext';
 import CalendarYear from '../components/CalendarYear';
 
 export default function Property() {
+  const location = useLocation();
+  const isChildRoute = location.pathname.endsWith('/reservations');
   const { setOptions } = useSideBarContext();
-  const { property, year, selectedDates, setSelectedDates } = useProperty();
+  const { property, year, selectedDates, setSelectedDates, reloadCalendar, setReloadCalendar } =
+    useProperty();
+  const [indexSelect, setIndexSelect] = useState(0);
 
   useEffect(() => {
-    setOptions([{ name: 'voltar', path: -1 }]);
-  }, []);
+    if (!isChildRoute) {
+      setOptions([
+        { name: 'Fazer Reserva', path: `${location.pathname}/reservations` },
+        { name: 'voltar', path: -1 },
+      ]);
+    } else {
+      setOptions([{ name: 'voltar', path: -1 }]);
+    }
+    setSelectedDates([new Date().toISOString().split('T')[0]]);
+    setReloadCalendar(!reloadCalendar);
+  }, [location]);
 
   function selectDate(day) {
-    setSelectedDates([day]);
+    if (day.reservation) {
+      const dates = [];
+      let current = new Date(day.reservation.inityDate);
+      while (current <= new Date(day.reservation.endDate)) {
+        if (current.toISOString().split('T')[0] === day.date) {
+          setIndexSelect(dates.length);
+        }
+        const date = { ...day, date: current.toISOString().split('T')[0] };
+        dates.push(date);
+        current.setDate(current.getDate() + 1);
+      }
+      setSelectedDates(dates);
+    } else {
+      setSelectedDates([day]);
+    }
   }
 
   return (
     <div className="max-w-full h-full pr-3">
-      <div className="flex flex-col items-center mb-2">
-        {property ? (
-          <>
-            <h1 className="default-h1 mb-0">{property.name}</h1>
-            <p className="text-gray-500">{property.adress}</p>
-            <img className="rounded w-11/12 sm:w-min" src={property.imageUrl} />
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
-      <hr className="border" />
-      <div className="flex flex-col sm:flex-row max-w-full max-h-fit p-2">
-        <div className="w-full sm:w-1/2 2xl:w-2/3">
-          <CalendarYear year={year} carrousel={window.innerWidth < 1285} click={selectDate} />
-        </div>
-        <div className="w-full sm:w-1/2 2xl:w-1/3">
-          <p className="default-h1 text-2xl">detalhes da reserva</p>
-          <pre className=" p-5">
-            <code>{JSON.stringify(selectedDates[0]).replace(/[{},]/g, '\n')}</code>
-          </pre>
-        </div>
-      </div>
+      {isChildRoute ? (
+        <Outlet />
+      ) : (
+        <>
+          <div className="flex flex-col items-center mb-2">
+            {property ? (
+              <>
+                <h1 className="default-h1 mb-0">{property.name}</h1>
+                <p className="text-gray-500">{property.adress}</p>
+                <img className="rounded w-11/12 sm:w-min" src={property.imageUrl} />
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
+          <hr className="border" />
+          <div className="flex flex-col sm:flex-row max-w-full max-h-fit p-2">
+            <div className="w-full sm:w-1/2 2xl:w-2/3">
+              <CalendarYear year={year} carrousel={window.innerWidth < 1285} click={selectDate} />
+            </div>
+            <div className="w-full sm:w-1/2 2xl:w-1/3 flex flex-col items-center">
+              <p className="default-h1 text-2xl">detalhes da reserva</p>
+              <div className="flex gap-2 w-11/12 justify-center">
+                <div className="flex flex-col items-end whitespace-nowrap text-lg">
+                  <p>Locatário:</p>
+                  <p>Contato:</p>
+                  <p>sinal:</p>
+                  <p>Valor da Reserva:</p>
+                  <p>Início Da Estadia:</p>
+                  <p>Fim da Estadia:</p>
+                </div>
+                {selectedDates[indexSelect]?.reservation ? (
+                  <div className="text-lg">
+                    <p>{selectedDates[indexSelect].reservation.name || 'indefinido'}</p>
+                    <p>{selectedDates[indexSelect].reservation.contact || 'indefinido'}</p>
+                    <p>{selectedDates[indexSelect].reservation.deposit || 'indefinido'}</p>
+                    <p>{selectedDates[indexSelect].reservation.value || 'indefinido'}</p>
+                    <p>{selectedDates[indexSelect].reservation.inityDate || 'indefinido'}</p>
+                    <p>{selectedDates[indexSelect].reservation.endDate || 'indefinido'}</p>
+                  </div>
+                ) : (
+                  <div>
+                    <p className="whitespace-nowrap invisible">Início Da Estadia:</p>
+                  </div>
+                )}
+              </div>
+              <div className="flex gap-2 m-6">
+                <button
+                  type="button"
+                  disabled={selectedDates[indexSelect]?.reservation ? false : true}
+                  className={`default-button ${selectedDates[indexSelect]?.reservation ? '' : 'bg-black/10 hover:bg-black/10'}`}
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  disabled={selectedDates[indexSelect]?.reservation ? false : true}
+                  className={`default-button ${selectedDates[indexSelect]?.reservation ? '' : 'bg-black/10 hover:bg-black/10'}`}
+                >
+                  Remover
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      <div style={{ height: '15vh' }} />
     </div>
   );
 }

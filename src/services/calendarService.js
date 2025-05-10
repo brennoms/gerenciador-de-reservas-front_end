@@ -12,12 +12,15 @@ export async function GetRestrictCalendar(year, propertyId, token) {
         for (const day of month.dias) {
           const reservation = day.reserva
             ? {
+                id: day.reserva._id,
                 userId: day.reserva.usuario_id,
                 propertyId: day.reserva.imovel_id,
                 name: day.reserva.nome,
                 contact: day.reserva.contato,
-                inityDate: day.reserva.data_inicio,
-                endDate: day.reserva.data_fim,
+                deposit: day.reserva.sinal,
+                value: day.reserva.valor,
+                inityDate: new Date(day.reserva.data_inicio).toISOString().split('T')[0],
+                endDate: new Date(day.reserva.data_fim).toISOString().split('T')[0],
               }
             : undefined;
           days.push({
