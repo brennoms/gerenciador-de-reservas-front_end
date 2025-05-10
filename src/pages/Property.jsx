@@ -9,7 +9,8 @@ export default function Property() {
   const location = useLocation();
   const isChildRoute = location.pathname.endsWith('/reservations');
   const { setOptions } = useSideBarContext();
-  const { property, year, selectedDates, setSelectedDates } = useProperty();
+  const { property, year, selectedDates, setSelectedDates, reloadCalendar, setReloadCalendar } =
+    useProperty();
 
   useEffect(() => {
     if (!isChildRoute) {
@@ -21,6 +22,7 @@ export default function Property() {
       setOptions([{ name: 'voltar', path: -1 }]);
     }
     setSelectedDates([new Date().toISOString().split('T')[0]]);
+    setReloadCalendar(!reloadCalendar);
   }, [location]);
 
   function selectDate(day) {

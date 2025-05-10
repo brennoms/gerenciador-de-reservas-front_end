@@ -18,6 +18,7 @@ export function PropertyProvider({ children }) {
   const [year, setYear] = useState(new Date().getFullYear());
   const [selectedDates, setSelectedDates] = useState([new Date().toISOString().split('T')[0]]);
   const [calendar, setCalendar] = useState([]);
+  const [reloadCalendar, setReloadCalendar] = useState(true);
 
   useEffect(() => {
     getProperty(propertyId, token).then(res => {
@@ -31,7 +32,7 @@ export function PropertyProvider({ children }) {
         setCalendar(res.data || []);
       }
     });
-  }, [year]);
+  }, [year, reloadCalendar]);
 
   return (
     <PropertyContext.Provider
@@ -45,6 +46,8 @@ export function PropertyProvider({ children }) {
         setSelectedDates,
         calendar,
         setCalendar,
+        reloadCalendar,
+        setReloadCalendar,
       }}
     >
       {children}
