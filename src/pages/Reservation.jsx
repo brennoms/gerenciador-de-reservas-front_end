@@ -192,7 +192,6 @@ export default function Property() {
           </form>
         </div>
       </div>
-      <div style={{ height: '15vh' }} />
     </div>
   );
 }

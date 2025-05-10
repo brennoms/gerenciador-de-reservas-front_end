@@ -58,6 +58,7 @@ export default function Property() {
           </div>
         </>
       )}
+      <div style={{ height: '15vh' }} />
     </div>
   );
 }
