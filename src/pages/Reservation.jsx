@@ -1,13 +1,22 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useSideBarContext } from '../layouts/PrivateLayout';
 import { useProperty } from '../contexts/PropertyContext';
 import CalendarYear from '../components/CalendarYear';
+import { makeReservation } from '../services/reservationService';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Property() {
+  const navigate = useNavigate();
   const { setOptions } = useSideBarContext();
-  const { year, calendar, selectedDates, setSelectedDates } = useProperty();
-  const [a, setA] = useState('');
+  const { year, calendar, selectedDates, setSelectedDates, propertyId } = useProperty();
+  const { token } = useAuth();
+  const [tenantName, setTenantName] = useState('');
+  const [contact, setContact] = useState('');
+  const [deposit, setDeposit] = useState('');
+  const [value, setValue] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     setOptions([{ name: 'voltar', path: -1 }]);
@@ -38,6 +47,30 @@ export default function Property() {
     }
   }
 
+  function HandleSubmit(e) {
+    e.preventDefault();
+    if (selectedDates.length === 0) {
+      setMessage('Selecione um periodo para a reserva');
+      return 0;
+    }
+    const reservation = {
+      tenantName,
+      contact,
+      deposit,
+      value,
+      initDate: selectedDates[0]?.date,
+      endDate: selectedDates[selectedDates.length - 1]?.date,
+    };
+    makeReservation(reservation, propertyId, token).then(res => {
+      if (!res.ok) {
+        setMessage(res.message || 'erro ao fazer a reserva');
+      } else {
+        navigate(-1, { replace: true });
+        alert('reserva feita');
+      }
+    });
+  }
+
   function verifyReservation(date) {
     const reservation = calendar?.flatMap(month => month.days)?.find(day => day.date === date.date)
       ?.reservation
@@ -62,45 +95,46 @@ export default function Property() {
           <CalendarYear year={year} carrousel={window.innerWidth < 1285} click={selectDates} />
         </div>
         <div className="w-full sm:w-1/2 2xl:w-1/3 mt-4 flex flex-col items-center p-5">
+          <p className="text-red-500">{message}</p>
           {selectedDates.map((date, index) => (
             <div key={index}>{verifyReservation(date)}</div>
           ))}
 
           <form
-            onSubmit={() => {}}
+            onSubmit={HandleSubmit}
             className="flex flex-col items-center justify-center gap-1 max-w-full sm:order-first"
           >
             <h1 className="default-h1">Nova Reserva</h1>
 
             <input
               className="comum-entry"
-              value={a}
+              value={tenantName}
               placeholder="Nome do Locatário"
-              onChange={e => setA(e.target.value)}
+              onChange={e => setTenantName(e.target.value)}
               required
             />
 
             <input
               className="comum-entry"
-              value={a}
+              value={contact}
               placeholder="Contato"
-              onChange={e => setA(e.target.value)}
+              onChange={e => setContact(e.target.value)}
               required
             />
 
             <input
               className="comum-entry"
-              value={a}
+              value={deposit}
               placeholder="Sinal"
-              onChange={e => setA(e.target.value)}
+              onChange={e => setDeposit(e.target.value)}
               required
             />
 
             <input
               className="comum-entry"
-              value={a}
+              value={value}
               placeholder="Valor da Reserva"
-              onChange={e => setA(e.target.value)}
+              onChange={e => setValue(e.target.value)}
               required
             />
 
@@ -110,7 +144,6 @@ export default function Property() {
                 className="w-8"
                 value={' ' + selectedDates[0]?.date?.split('-')[2]}
                 placeholder="DD"
-                onChange={e => setA(e.target.value)}
                 required
               />
               <p>/</p>
@@ -118,7 +151,6 @@ export default function Property() {
                 className="w-8"
                 value={' ' + selectedDates[0]?.date?.split('-')[1]}
                 placeholder="MM"
-                onChange={e => setA(e.target.value)}
                 required
               />
               <p>/</p>
@@ -126,7 +158,6 @@ export default function Property() {
                 className="w-16"
                 value={' ' + selectedDates[0]?.date?.split('-')[0]}
                 placeholder="AAAA"
-                onChange={e => setA(e.target.value)}
                 required
               />
             </div>
@@ -137,7 +168,6 @@ export default function Property() {
                 className="w-8"
                 value={' ' + selectedDates[selectedDates.length - 1]?.date?.split('-')[2]}
                 placeholder="DD"
-                onChange={e => setA(e.target.value)}
                 required
               />
               <p>/</p>
@@ -145,7 +175,6 @@ export default function Property() {
                 className="w-8"
                 value={' ' + selectedDates[selectedDates.length - 1]?.date?.split('-')[1]}
                 placeholder="MM"
-                onChange={e => setA(e.target.value)}
                 required
               />
               <p>/</p>
@@ -153,7 +182,6 @@ export default function Property() {
                 className="w-16"
                 value={' ' + selectedDates[selectedDates.length - 1]?.date?.split('-')[0]}
                 placeholder="AAAA"
-                onChange={e => setA(e.target.value)}
                 required
               />
             </div>
