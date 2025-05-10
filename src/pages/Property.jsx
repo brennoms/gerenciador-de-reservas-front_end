@@ -66,11 +66,48 @@ export default function Property() {
             <div className="w-full sm:w-1/2 2xl:w-2/3">
               <CalendarYear year={year} carrousel={window.innerWidth < 1285} click={selectDate} />
             </div>
-            <div className="w-full sm:w-1/2 2xl:w-1/3">
+            <div className="w-full sm:w-1/2 2xl:w-1/3 flex flex-col items-center">
               <p className="default-h1 text-2xl">detalhes da reserva</p>
-              <pre className=" p-5">
-                <code>{JSON.stringify(selectedDates[indexSelect])?.replace(/[{},]/g, '\n')}</code>
-              </pre>
+              <div className="flex gap-2 w-11/12 justify-center">
+                <div className="flex flex-col items-end whitespace-nowrap text-lg">
+                  <p>Locatário:</p>
+                  <p>Contato:</p>
+                  <p>sinal:</p>
+                  <p>Valor da Reserva:</p>
+                  <p>Início Da Estadia:</p>
+                  <p>Fim da Estadia:</p>
+                </div>
+                {selectedDates[indexSelect]?.reservation ? (
+                  <div className="text-lg">
+                    <p>{selectedDates[indexSelect].reservation.name || 'indefinido'}</p>
+                    <p>{selectedDates[indexSelect].reservation.contact || 'indefinido'}</p>
+                    <p>{selectedDates[indexSelect].reservation.deposit || 'indefinido'}</p>
+                    <p>{selectedDates[indexSelect].reservation.value || 'indefinido'}</p>
+                    <p>{selectedDates[indexSelect].reservation.inityDate || 'indefinido'}</p>
+                    <p>{selectedDates[indexSelect].reservation.endDate || 'indefinido'}</p>
+                  </div>
+                ) : (
+                  <div>
+                    <p className="whitespace-nowrap invisible">Início Da Estadia:</p>
+                  </div>
+                )}
+              </div>
+              <div className="flex gap-2 m-6">
+                <button
+                  type="button"
+                  disabled={selectedDates[indexSelect]?.reservation ? false : true}
+                  className={`default-button ${selectedDates[indexSelect]?.reservation ? '' : 'bg-black/10 hover:bg-black/10'}`}
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  disabled={selectedDates[indexSelect]?.reservation ? false : true}
+                  className={`default-button ${selectedDates[indexSelect]?.reservation ? '' : 'bg-black/10 hover:bg-black/10'}`}
+                >
+                  Remover
+                </button>
+              </div>
             </div>
           </div>
         </>

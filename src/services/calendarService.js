@@ -17,6 +17,8 @@ export async function GetRestrictCalendar(year, propertyId, token) {
                 propertyId: day.reserva.imovel_id,
                 name: day.reserva.nome,
                 contact: day.reserva.contato,
+                deposit: day.reserva.sinal,
+                value: day.reserva.valor,
                 inityDate: new Date(day.reserva.data_inicio).toISOString().split('T')[0],
                 endDate: new Date(day.reserva.data_fim).toISOString().split('T')[0],
               }
