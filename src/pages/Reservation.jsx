@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 import { useSideBarContext } from '../layouts/PrivateLayout';
 import { useProperty } from '../contexts/PropertyContext';
+import { useAuth } from '../contexts/AuthContext';
+import { useAlert } from '../contexts/AlertContext';
 import CalendarYear from '../components/CalendarYear';
 import { makeReservation } from '../services/reservationService';
-import { useAuth } from '../contexts/AuthContext';
 
 export default function Property() {
   const navigate = useNavigate();
   const { setOptions } = useSideBarContext();
   const { year, calendar, selectedDates, setSelectedDates, propertyId } = useProperty();
+  const { setAlertMessage } = useAlert();
   const { token } = useAuth();
   const [tenantName, setTenantName] = useState('');
   const [contact, setContact] = useState('');
@@ -67,7 +69,7 @@ export default function Property() {
         setMessage(res.message || 'erro ao fazer a reserva');
       } else {
         navigate(-1, { replace: true });
-        alert('reserva feita');
+        setAlertMessage('Reserva feita!');
       }
     });
   }
