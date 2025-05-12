@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { StepBack, StepForward } from 'lucide-react';
 
 import CalendarMonth from './CalendarMonth';
@@ -6,6 +7,7 @@ import { useProperty } from '../contexts/PropertyContext';
 
 export default function CalendarYear({ carrousel, click }) {
   const { year, setYear, calendar } = useProperty();
+  const [prevCarrouselIndex, setPrevCarrouselIndex] = useState(new Date().getMonth());
 
   function decreaseYear() {
     if (!(year - 1 < 2000)) {
@@ -14,6 +16,14 @@ export default function CalendarYear({ carrousel, click }) {
   }
   function increaseYear() {
     setYear(year + 1);
+  }
+  function changeYear(index) {
+    if (index === 0 && prevCarrouselIndex === calendar.length - 1) {
+      increaseYear();
+    } else if (index === calendar.length - 1 && prevCarrouselIndex === 0) {
+      decreaseYear();
+    }
+    setPrevCarrouselIndex(index);
   }
 
   return (
@@ -30,6 +40,7 @@ export default function CalendarYear({ carrousel, click }) {
       {carrousel ? (
         <>
           <Carrousel
+            afterChange={changeYear}
             cards={calendar.map(month => (
               <CalendarMonth key={month.monthNumber} month={month} click={click} />
             ))}

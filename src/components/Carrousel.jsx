@@ -6,7 +6,7 @@ import { StepBack, StepForward } from 'lucide-react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-export default function Carrousel({ cards, initialCard, className }) {
+export default function Carrousel({ cards, initialCard, className, afterChange }) {
   const sliderRef = useRef(null);
   const isMobile = window.innerWidth < 768;
 
@@ -20,7 +20,9 @@ export default function Carrousel({ cards, initialCard, className }) {
     swipe: isMobile,
     draggable: isMobile,
     initialSlide: initialCard,
-    afterChange: console.log('em desenvolvimento'),
+    afterChange: index => {
+      afterChange?.(index);
+    },
     responsive: [
       {
         breakpoint: 768,
