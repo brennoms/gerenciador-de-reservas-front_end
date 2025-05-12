@@ -29,7 +29,7 @@ export default function PrivateLayout() {
   return (
     <div className="flex">
       <div className="div-sidebar">
-        <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
+        <div className={`sidebar z-10 ${isOpen ? 'open' : 'closed'}`}>
           <button type="button" onClick={() => setIsOpen(!isOpen)} className="toggle-btn">
             {isOpen ? <X /> : <Menu />}
           </button>
