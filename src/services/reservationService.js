@@ -23,3 +23,16 @@ export async function makeReservation(reservation, propertyId, token) {
     return { message: Object.values(error.response.data)[0] || 'erro ao fazer reserva', ok: false };
   }
 }
+
+export async function removeReservation(reservationId, propertyId, token) {
+  try {
+    const res = await api.delete(`/imoveis/${propertyId}/reservas/${reservationId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    res.ok = true;
+    return res;
+  } catch (error) {
+    console.log(error);
+    return { ok: false, error };
+  }
+}
