@@ -7,6 +7,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useAlert } from '../contexts/AlertContext';
 import CalendarYear from '../components/CalendarYear';
 import { makeReservation } from '../services/reservationService';
+import { isoToLocaleString } from '../utils/dataUtils';
 
 export default function Property() {
   const navigate = useNavigate();
@@ -143,56 +144,12 @@ export default function Property() {
 
             <div className="flex items-center max-w-full">
               <p className="mr-1">Início Da Estadia:</p>
-              <input
-                className="w-8"
-                value={' ' + selectedDates[0]?.date?.split('-')[2]}
-                onChange={() => {}}
-                placeholder="DD"
-                required
-              />
-              <p>/</p>
-              <input
-                className="w-8"
-                value={' ' + selectedDates[0]?.date?.split('-')[1]}
-                onChange={() => {}}
-                placeholder="MM"
-                required
-              />
-              <p>/</p>
-              <input
-                className="w-16"
-                value={' ' + selectedDates[0]?.date?.split('-')[0]}
-                onChange={() => {}}
-                placeholder="AAAA"
-                required
-              />
+              <p>{isoToLocaleString(selectedDates[0]?.date)}</p>
             </div>
 
             <div className="flex items-center max-w-full">
               <p className="mr-1">Fim da Estadia:</p>
-              <input
-                className="w-8"
-                value={' ' + selectedDates[selectedDates.length - 1]?.date?.split('-')[2]}
-                onChange={() => {}}
-                placeholder="DD"
-                required
-              />
-              <p>/</p>
-              <input
-                className="w-8"
-                value={' ' + selectedDates[selectedDates.length - 1]?.date?.split('-')[1]}
-                onChange={() => {}}
-                placeholder="MM"
-                required
-              />
-              <p>/</p>
-              <input
-                className="w-16"
-                value={' ' + selectedDates[selectedDates.length - 1]?.date?.split('-')[0]}
-                onChange={() => {}}
-                placeholder="AAAA"
-                required
-              />
+              <p>{isoToLocaleString(selectedDates[selectedDates.length - 1]?.date)}</p>
             </div>
             <button type="submit" className="default-button w-full m-1">
               Confirmar
