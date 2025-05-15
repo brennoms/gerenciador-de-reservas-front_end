@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useSideBarContext } from '../layouts/PrivateLayout';
-import { useProperty } from '../contexts/PropertyContext';
-import { useAuth } from '../contexts/AuthContext';
-import { useAlert } from '../contexts/AlertContext';
-import CalendarYear from '../components/CalendarYear';
-import { makeReservation } from '../services/reservationService';
-import { isoToLocaleString } from '../utils/dataUtils';
+import { useSideBarContext } from '../../layouts/PrivateLayout';
+import { useProperty } from '../../contexts/PropertyContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { useAlert } from '../../contexts/AlertContext';
+import CalendarYear from '../../components/CalendarYear';
+import { makeReservation } from '../../services/reservationService';
+import { isoToLocaleString } from '../../utils/dataUtils';
 
 export default function Property() {
   const navigate = useNavigate();

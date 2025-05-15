@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { addProperty } from '../services/propertiesService';
-import { useAuth } from '../contexts/AuthContext';
-import { useSideBarContext } from '../layouts/PrivateLayout';
+import { addProperty } from '../../services/propertiesService';
+import { useAuth } from '../../contexts/AuthContext';
+import { useSideBarContext } from '../../layouts/PrivateLayout';
 
 export default function PropertiesAdd() {
   const navigate = useNavigate();

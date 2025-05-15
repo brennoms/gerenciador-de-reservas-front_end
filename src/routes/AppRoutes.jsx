@@ -4,14 +4,14 @@ import { PropertyProvider } from '../contexts/PropertyContext';
 import ProtectedRoute from './ProtectedRoute';
 import PublicLayout from '../layouts/PublicLayout';
 import PrivateLayout from '../layouts/PrivateLayout';
-import Home from '../pages/Home';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-import Property from '../pages/Property';
-import Properties from '../pages/Properties';
-import PropertiesAdd from '../pages/PropertiesAdd';
-import PropertiesRemove from '../pages/PropertiesRemove';
-import Reservation from '../pages/Reservation';
+import Home from '../pages/PublicPages/Home';
+import Login from '../pages/PublicPages/Login';
+import Register from '../pages/PublicPages/Register';
+import Property from '../pages/PrivatePages/Property';
+import Properties from '../pages/PrivatePages/Properties';
+import PropertiesAdd from '../pages/PrivatePages/PropertiesAdd';
+import PropertiesRemove from '../pages/PrivatePages/PropertiesRemove';
+import Reservation from '../pages/PrivatePages/Reservation';
 
 export default function AppRoutes() {
   return (

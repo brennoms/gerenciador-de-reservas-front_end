@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { X, Check } from 'lucide-react';
 
-import { useSideBarContext } from '../layouts/PrivateLayout';
-import { useProperty } from '../contexts/PropertyContext';
-import { useAlert } from '../contexts/AlertContext';
-import { useAuth } from '../contexts/AuthContext';
-import CalendarYear from '../components/CalendarYear';
-import { removeReservation } from '../services/reservationService';
-import { isoToLocaleString } from '../utils/dataUtils';
+import { useSideBarContext } from '../../layouts/PrivateLayout';
+import { useProperty } from '../../contexts/PropertyContext';
+import { useAlert } from '../../contexts/AlertContext';
+import { useAuth } from '../../contexts/AuthContext';
+import CalendarYear from '../../components/CalendarYear';
+import { removeReservation } from '../../services/reservationService';
+import { isoToLocaleString } from '../../utils/dataUtils';
 
 export default function Property() {
   const location = useLocation();
