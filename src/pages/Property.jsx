@@ -8,6 +8,7 @@ import { useAlert } from '../contexts/AlertContext';
 import { useAuth } from '../contexts/AuthContext';
 import CalendarYear from '../components/CalendarYear';
 import { removeReservation } from '../services/reservationService';
+import { isoToLocaleString } from '../utils/dataUtils';
 
 export default function Property() {
   const location = useLocation();
@@ -113,8 +114,8 @@ export default function Property() {
             <div className="w-full sm:w-1/2 2xl:w-1/3 flex flex-col items-center">
               <p className="default-h1 text-2xl">
                 {selectedDates[indexSelect]?.date
-                  ? `${selectedDates[indexSelect].date.slice(8, 10)}/${selectedDates[indexSelect].date.slice(5, 7)}/${selectedDates[indexSelect].date.slice(0, 4)}`
-                  : ''}
+                  ? isoToLocaleString(selectedDates[indexSelect].date)
+                  : 'Selecione Um Dia.'}
               </p>
               <div className="flex gap-2 w-11/12 justify-center">
                 <div className="flex flex-col items-end whitespace-nowrap text-lg">
@@ -131,8 +132,14 @@ export default function Property() {
                     <p>{selectedDates[indexSelect].reservation.contact || 'indefinido'}</p>
                     <p>{selectedDates[indexSelect].reservation.deposit || 'indefinido'}</p>
                     <p>{selectedDates[indexSelect].reservation.value || 'indefinido'}</p>
-                    <p>{selectedDates[indexSelect].reservation.inityDate || 'indefinido'}</p>
-                    <p>{selectedDates[indexSelect].reservation.endDate || 'indefinido'}</p>
+                    <p>
+                      {isoToLocaleString(selectedDates[indexSelect].reservation.inityDate) ||
+                        'indefinido'}
+                    </p>
+                    <p>
+                      {isoToLocaleString(selectedDates[indexSelect].reservation.endDate) ||
+                        'indefinido'}
+                    </p>
                   </div>
                 ) : (
                   <div>
