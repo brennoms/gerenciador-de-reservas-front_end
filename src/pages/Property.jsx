@@ -150,13 +150,6 @@ export default function Property() {
               <div className="flex gap-2 m-6">
                 <button
                   type="button"
-                  disabled={selectedDates[indexSelect]?.reservation ? false : true}
-                  className={`default-button ${selectedDates[indexSelect]?.reservation ? '' : 'bg-black/10 hover:bg-black/10'}`}
-                >
-                  Editar
-                </button>
-                <button
-                  type="button"
                   onClick={() => {
                     setAlertRemoveReservation(true);
                   }}
