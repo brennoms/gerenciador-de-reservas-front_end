@@ -69,7 +69,7 @@ export default function Property() {
   }
 
   return (
-    <div className="max-w-full h-full pr-3">
+    <div className="max-w-full h-full">
       {alertRemoveReservation ? (
         <div className="fixed z-20 inset-0 w-screen h-screen flex justify-center items-center bg-black/50">
           <div className="bg-white  flex flex-col items-center p-5 m-5 rounded border border-black">

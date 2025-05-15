@@ -92,7 +92,7 @@ export default function Property() {
   }
 
   return (
-    <div className="max-w-full h-full pr-3">
+    <div className="max-w-full h-full">
       <div className="flex flex-col sm:flex-row max-w-full max-h-fit p-2">
         <div className="w-full sm:w-1/2 2xl:w-2/3 sm:order-last">
           <h1 className="default-h1">Selecione Um Intervalo</h1>
