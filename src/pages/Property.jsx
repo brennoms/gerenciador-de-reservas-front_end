@@ -112,10 +112,13 @@ export default function Property() {
               <CalendarYear year={year} carrousel={window.innerWidth < 1285} click={selectDate} />
             </div>
             <div className="w-full sm:w-1/2 2xl:w-1/3 flex flex-col items-center">
-              <p className="default-h1 text-2xl">
+              <p className="default-h1 text-2xl mb-0">
                 {selectedDates[indexSelect]?.date
                   ? isoToLocaleString(selectedDates[indexSelect].date)
                   : 'Selecione Um Dia.'}
+              </p>
+              <p className="h-4 mb-4 font-bold text-red-500">
+                {selectedDates[indexSelect]?.holiday ? selectedDates[indexSelect].holiday.name : ''}
               </p>
               <div className="flex gap-2 w-11/12 justify-center">
                 <div className="flex flex-col items-end whitespace-nowrap text-lg">
