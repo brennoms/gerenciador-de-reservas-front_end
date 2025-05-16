@@ -114,6 +114,7 @@ npm install
 3. Configure as variáveis de ambiente:
    - Crie um arquivo `.env` na raiz do projeto
    - Adicione a URL da API:
+   - ⚠️ **Atenção:** O arquivo `.env` **não deve ser versionado**. Ele contém dados sensíveis.
 
 ```
 VITE_API_URL=http://localhost:3000
