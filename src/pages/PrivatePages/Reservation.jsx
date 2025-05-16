@@ -34,7 +34,7 @@ export default function Property() {
       const dates = [];
       let end;
       let current;
-      if (selectedDates[0].date.split('-') <= day.date.split('-')) {
+      if (selectedDates[0].date <= day.date) {
         current = new Date(selectedDates[0].date);
         end = new Date(day.date);
       } else {
@@ -83,8 +83,7 @@ export default function Property() {
     if (reservation) {
       return (
         <pre key={date.date} className="text-red-500">
-          {date?.date?.split('-')[2]}/{date?.date?.split('-')[1]}/{date?.date?.split('-')[0]} -
-          Indisponível
+          {isoToLocaleString(date.date)} - Indisponível
         </pre>
       );
     }
