@@ -11,6 +11,7 @@ export async function makeReservation(reservation, propertyId, token) {
     valor: reservation.value,
     data_inicio: reservation.initDate,
     data_fim: reservation.endDate,
+    observacoes: reservation.observations,
   };
   try {
     const res = await api.post(`/imoveis/${propertyId}/reservas`, data, {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { X, Check } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 import { useSideBarContext } from '../../layouts/PrivateLayout';
 import { useProperty } from '../../contexts/PropertyContext';
@@ -9,17 +9,18 @@ import { useAuth } from '../../contexts/AuthContext';
 import CalendarYear from '../../components/CalendarYear';
 import { removeReservation } from '../../services/reservationService';
 import { isoToLocaleString } from '../../utils/dataUtils';
+import { sendMessage } from '../../services/WhatssapService';
+import { getReservationMessage } from '../../utils/messageUtils';
 
 export default function Property() {
   const location = useLocation();
   const isChildRoute = location.pathname.endsWith('/reservations');
   const { setOptions } = useSideBarContext();
-  const { setAlertMessage } = useAlert();
+  const { setYesOrNoAlert } = useAlert();
   const { token } = useAuth();
   const { property, year, selectedDates, setSelectedDates, reloadCalendar, setReloadCalendar } =
     useProperty();
   const [indexSelect, setIndexSelect] = useState(0);
-  const [alertRemoveReservation, setAlertRemoveReservation] = useState(false);
 
   useEffect(() => {
     if (!isChildRoute) {
@@ -59,38 +60,14 @@ export default function Property() {
       selectedDates[indexSelect].reservation.propertyId,
       token
     ).then(res => {
-      if (!res.ok) {
-        setAlertMessage('Erro no sistema ao remover a reserva');
-      } else {
+      if (res.ok) {
         setReloadCalendar(!reloadCalendar);
       }
-      setAlertRemoveReservation(false);
     });
   }
 
   return (
     <div className="max-w-full h-full">
-      {alertRemoveReservation ? (
-        <div className="fixed z-20 inset-0 w-screen h-screen flex justify-center items-center bg-black/50">
-          <div className="bg-white  flex flex-col items-center p-5 m-5 rounded border border-black">
-            <p className="">Tem certeza que deseja remover essa reserva ?</p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => {
-                  setAlertRemoveReservation(false);
-                }}
-              >
-                <X className="text-red-500" size={'2rem'} />
-              </button>
-              <button onClick={clickRemoveReservation}>
-                <Check className="text-green-500" size={'2rem'} />
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
       {isChildRoute ? (
         <Outlet />
       ) : (
@@ -120,33 +97,47 @@ export default function Property() {
               <p className="h-4 mb-4 font-bold text-red-500">
                 {selectedDates[indexSelect]?.holiday ? selectedDates[indexSelect].holiday.name : ''}
               </p>
-              <div className="flex gap-2 w-11/12 justify-center">
-                <div className="flex flex-col items-end whitespace-nowrap text-lg">
-                  <p>Locatário:</p>
-                  <p>Contato:</p>
-                  <p>sinal:</p>
-                  <p>Valor da Reserva:</p>
-                  <p>Início Da Estada:</p>
-                  <p>Fim da Estada:</p>
+              <div className="flex flex-col gap-2 w-11/12 items-center w-full">
+                <div className="flex gap-2 w-11/12 justify-center">
+                  <div className="flex flex-col items-end whitespace-nowrap text-lg">
+                    <p>Locatário:</p>
+                    <p>Contato:</p>
+                    <p>sinal:</p>
+                    <p>Valor da Reserva:</p>
+                    <p>Início Da Estada:</p>
+                    <p>Fim da Estada:</p>
+                  </div>
+                  {selectedDates[indexSelect]?.reservation ? (
+                    <div className="text-lg whitespace-nowrap">
+                      <p>{selectedDates[indexSelect].reservation.name || 'indefinido'}</p>
+                      <p>{selectedDates[indexSelect].reservation.contact || 'indefinido'}</p>
+                      <p>{selectedDates[indexSelect].reservation.deposit || 'indefinido'}</p>
+                      <p>{selectedDates[indexSelect].reservation.value || 'indefinido'}</p>
+                      <p>
+                        {isoToLocaleString(selectedDates[indexSelect].reservation.inityDate) ||
+                          'indefinido'}
+                      </p>
+                      <p>
+                        {isoToLocaleString(selectedDates[indexSelect].reservation.endDate) ||
+                          'indefinido'}
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="whitespace-nowrap invisible">Início Da Estadia:</p>
+                    </div>
+                  )}
                 </div>
-                {selectedDates[indexSelect]?.reservation ? (
-                  <div className="text-lg whitespace-nowrap">
-                    <p>{selectedDates[indexSelect].reservation.name || 'indefinido'}</p>
-                    <p>{selectedDates[indexSelect].reservation.contact || 'indefinido'}</p>
-                    <p>{selectedDates[indexSelect].reservation.deposit || 'indefinido'}</p>
-                    <p>{selectedDates[indexSelect].reservation.value || 'indefinido'}</p>
-                    <p>
-                      {isoToLocaleString(selectedDates[indexSelect].reservation.inityDate) ||
-                        'indefinido'}
-                    </p>
-                    <p>
-                      {isoToLocaleString(selectedDates[indexSelect].reservation.endDate) ||
-                        'indefinido'}
+                {selectedDates[indexSelect]?.reservation?.observations ? (
+                  <div className="flex flex-col items-center w-full pr-5 pl-5">
+                    <p className="text-lg whitespace-nowrap">Observações:</p>
+                    <p className="text-justify max-w-full">
+                      {selectedDates[indexSelect].reservation.observations}
                     </p>
                   </div>
                 ) : (
-                  <div>
-                    <p className="whitespace-nowrap invisible">Início Da Estadia:</p>
+                  <div className="flex flex-col items-center w-full">
+                    <p className="whitespace-nowrap text-lg">Observações:</p>
                   </div>
                 )}
               </div>
@@ -154,12 +145,28 @@ export default function Property() {
                 <button
                   type="button"
                   onClick={() => {
-                    setAlertRemoveReservation(true);
+                    setYesOrNoAlert({
+                      message: 'Deseja realmente remover a reserva?',
+                      yesMessage: 'Reserva excluida.',
+                      callBack: clickRemoveReservation,
+                    });
                   }}
                   disabled={selectedDates[indexSelect]?.reservation ? false : true}
                   className={`default-button ${selectedDates[indexSelect]?.reservation ? '' : 'bg-black/10 hover:bg-black/10'}`}
                 >
                   Remover
+                </button>
+                <button
+                  className={`rounded py-2 px-4 text-white ${selectedDates[indexSelect]?.reservation ? 'bg-green-400 hover:bg-green-500' : 'bg-black/10 hover:bg-black/10'}`}
+                  onClick={() => {
+                    sendMessage(
+                      getReservationMessage(selectedDates[indexSelect].reservation, property),
+                      selectedDates[indexSelect].reservation.contact
+                    );
+                  }}
+                  disabled={selectedDates[indexSelect]?.reservation?.contact ? false : true}
+                >
+                  <MessageCircle />
                 </button>
               </div>
             </div>

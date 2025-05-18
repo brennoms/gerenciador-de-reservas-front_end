@@ -4,7 +4,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex min-h-screen flex-col items-center gap-1 justify-center">
+    <div className="flex flex-col h-[80vh] items-center gap-1 justify-center">
       <button className="default-button" onClick={() => navigate('/login')}>
         Entrar
       </button>

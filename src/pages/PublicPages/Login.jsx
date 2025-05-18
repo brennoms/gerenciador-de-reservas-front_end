@@ -33,7 +33,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center h-[80vh]">
       <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center gap-1">
         <h1 className="pb-4 font-bold text-5xl text-center cursor-default">Entrar</h1>
 

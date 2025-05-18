@@ -13,12 +13,13 @@ export default function Property() {
   const navigate = useNavigate();
   const { setOptions } = useSideBarContext();
   const { year, calendar, selectedDates, setSelectedDates, propertyId } = useProperty();
-  const { setAlertMessage } = useAlert();
+  const { setSucessAlert } = useAlert();
   const { token } = useAuth();
   const [tenantName, setTenantName] = useState('');
   const [contact, setContact] = useState('');
   const [deposit, setDeposit] = useState('');
   const [value, setValue] = useState('');
+  const [observations, setObservations] = useState('');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -64,13 +65,14 @@ export default function Property() {
       value,
       initDate: selectedDates[0]?.date,
       endDate: selectedDates[selectedDates.length - 1]?.date,
+      observations,
     };
     makeReservation(reservation, propertyId, token).then(res => {
       if (!res.ok) {
         setMessage(res.message || 'erro ao fazer a reserva');
       } else {
         navigate(-1, { replace: true });
-        setAlertMessage('Reserva feita!');
+        setSucessAlert('Reserva feita!');
       }
     });
   }
@@ -120,7 +122,7 @@ export default function Property() {
             <input
               className="comum-entry"
               value={contact}
-              placeholder="Contato"
+              placeholder="Celular, ex: +55 21 1234..."
               onChange={e => setContact(e.target.value)}
               required
             />
@@ -139,6 +141,13 @@ export default function Property() {
               placeholder="Valor da Reserva"
               onChange={e => setValue(e.target.value)}
               required
+            />
+
+            <textarea
+              className="comum-entry h-24"
+              value={observations}
+              placeholder="Observações"
+              onChange={e => setObservations(e.target.value)}
             />
 
             <div className="flex items-center max-w-full">
