@@ -14,12 +14,11 @@ export default function Property() {
   const location = useLocation();
   const isChildRoute = location.pathname.endsWith('/reservations');
   const { setOptions } = useSideBarContext();
-  const { setSucessAlert, setFailureAlert } = useAlert();
+  const { setYesOrNoAlert } = useAlert();
   const { token } = useAuth();
   const { property, year, selectedDates, setSelectedDates, reloadCalendar, setReloadCalendar } =
     useProperty();
   const [indexSelect, setIndexSelect] = useState(0);
-  const [alertRemoveReservation, setAlertRemoveReservation] = useState(false);
 
   useEffect(() => {
     if (!isChildRoute) {
@@ -59,39 +58,14 @@ export default function Property() {
       selectedDates[indexSelect].reservation.propertyId,
       token
     ).then(res => {
-      if (!res.ok) {
-        setFailureAlert('Erro no sistema ao remover a reserva');
-      } else {
+      if (res.ok) {
         setReloadCalendar(!reloadCalendar);
       }
-      setSucessAlert('Reserva removida com sucesso');
-      setAlertRemoveReservation(false);
     });
   }
 
   return (
     <div className="max-w-full h-full">
-      {alertRemoveReservation ? (
-        <div className="fixed z-20 inset-0 w-screen h-screen flex justify-center items-center bg-black/50">
-          <div className="bg-white  flex flex-col items-center p-5 m-5 rounded border border-black">
-            <p className="">Tem certeza que deseja remover essa reserva ?</p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => {
-                  setAlertRemoveReservation(false);
-                }}
-              >
-                <X className="text-red-500" size={'2rem'} />
-              </button>
-              <button onClick={clickRemoveReservation}>
-                <Check className="text-green-500" size={'2rem'} />
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
       {isChildRoute ? (
         <Outlet />
       ) : (
@@ -155,7 +129,11 @@ export default function Property() {
                 <button
                   type="button"
                   onClick={() => {
-                    setAlertRemoveReservation(true);
+                    setYesOrNoAlert({
+                      message: 'Deseja realmente remover a reserva?',
+                      yesMessage: 'Reserva excluida.',
+                      callBack: clickRemoveReservation,
+                    });
                   }}
                   disabled={selectedDates[indexSelect]?.reservation ? false : true}
                   className={`default-button ${selectedDates[indexSelect]?.reservation ? '' : 'bg-black/10 hover:bg-black/10'}`}
