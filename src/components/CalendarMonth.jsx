@@ -6,7 +6,7 @@ export default function MonthCalendar({ month, click }) {
   function format(day) {
     let style = {};
     if (selectedDates.some(date => date?.date === day.date)) {
-      style.backgroundColor = '#60A5FA';
+      style.backgroundColor = ' #60A5FA';
     } else if (
       day.date.split('-')[1] < month.monthNumber + 1 ||
       day.date.split('-')[1] > month.monthNumber + 1
@@ -16,10 +16,17 @@ export default function MonthCalendar({ month, click }) {
     }
     if (day.reservation) {
       if (selectedDates.some(date => date?.date === day.date)) {
-        style.backgroundColor = '#FCD34D';
+        style.backgroundColor = ' #F59E0B';
       } else {
-        style.backgroundColor = '#FBBF24';
+        style.backgroundColor = ' #FBBF24';
       }
+    }
+    if (
+      day.date.split('-')[1] < month.monthNumber + 1 ||
+      day.date.split('-')[1] > month.monthNumber + 1
+    ) {
+      style.filter = 'brightness(85%)';
+      style.fontSize = '0.9rem';
     }
     if (day.holiday) {
       style.color = 'red';
