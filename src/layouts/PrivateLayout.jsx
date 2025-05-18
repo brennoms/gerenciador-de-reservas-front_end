@@ -28,13 +28,16 @@ export default function PrivateLayout() {
   return (
     <div>
       <div>
-        <div className="flex bg-gray-800">
+        <div className="fixed z-20 w-full flex bg-gray-800">
           <button className="p-2 text-white" type="button" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={30} /> : <Menu size={30} />}
           </button>
         </div>
+        <div className="w-full p-2">
+          <Menu size={30} />
+        </div>
         <div
-          className={`${isOpen ? 'min-w-[11rem] p-4' : 'w-0'} absolute z-10 h-fit mt-1 ml-1 bg-gray-800 rounded text-white transition-[width] duration-100 ease-in-out overflow-hidden`}
+          className={`${isOpen ? 'min-w-[11rem] p-4' : 'w-0'} fixed z-20 h-fit mt-1 ml-1 bg-gray-800 rounded text-white transition-[width] duration-100 ease-in-out overflow-hidden`}
         >
           <div className={`${isOpen ? 'flex flex-col h-full' : 'hidden'}`}>
             <div className="flex flex-col items-center">
