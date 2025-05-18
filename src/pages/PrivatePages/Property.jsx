@@ -14,7 +14,7 @@ export default function Property() {
   const location = useLocation();
   const isChildRoute = location.pathname.endsWith('/reservations');
   const { setOptions } = useSideBarContext();
-  const { setSucessAlert } = useAlert();
+  const { setSucessAlert, setFailureAlert } = useAlert();
   const { token } = useAuth();
   const { property, year, selectedDates, setSelectedDates, reloadCalendar, setReloadCalendar } =
     useProperty();
@@ -60,7 +60,7 @@ export default function Property() {
       token
     ).then(res => {
       if (!res.ok) {
-        setSucessAlert('Erro no sistema ao remover a reserva');
+        setFailureAlert('Erro no sistema ao remover a reserva');
       } else {
         setReloadCalendar(!reloadCalendar);
       }
