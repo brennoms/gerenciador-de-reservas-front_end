@@ -19,6 +19,7 @@ export default function Property() {
   const [contact, setContact] = useState('');
   const [deposit, setDeposit] = useState('');
   const [value, setValue] = useState('');
+  const [observations, setObservations] = useState('');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -64,6 +65,7 @@ export default function Property() {
       value,
       initDate: selectedDates[0]?.date,
       endDate: selectedDates[selectedDates.length - 1]?.date,
+      observations,
     };
     makeReservation(reservation, propertyId, token).then(res => {
       if (!res.ok) {
@@ -138,6 +140,14 @@ export default function Property() {
               value={value}
               placeholder="Valor da Reserva"
               onChange={e => setValue(e.target.value)}
+              required
+            />
+
+            <textarea
+              className="comum-entry h-24"
+              value={observations}
+              placeholder="Observações"
+              onChange={e => setObservations(e.target.value)}
               required
             />
 

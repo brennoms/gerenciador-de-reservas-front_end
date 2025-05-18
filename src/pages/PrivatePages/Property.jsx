@@ -95,33 +95,47 @@ export default function Property() {
               <p className="h-4 mb-4 font-bold text-red-500">
                 {selectedDates[indexSelect]?.holiday ? selectedDates[indexSelect].holiday.name : ''}
               </p>
-              <div className="flex gap-2 w-11/12 justify-center">
-                <div className="flex flex-col items-end whitespace-nowrap text-lg">
-                  <p>Locatário:</p>
-                  <p>Contato:</p>
-                  <p>sinal:</p>
-                  <p>Valor da Reserva:</p>
-                  <p>Início Da Estada:</p>
-                  <p>Fim da Estada:</p>
+              <div className="flex flex-col gap-2 w-11/12 items-center w-full">
+                <div className="flex gap-2 w-11/12 justify-center">
+                  <div className="flex flex-col items-end whitespace-nowrap text-lg">
+                    <p>Locatário:</p>
+                    <p>Contato:</p>
+                    <p>sinal:</p>
+                    <p>Valor da Reserva:</p>
+                    <p>Início Da Estada:</p>
+                    <p>Fim da Estada:</p>
+                  </div>
+                  {selectedDates[indexSelect]?.reservation ? (
+                    <div className="text-lg whitespace-nowrap">
+                      <p>{selectedDates[indexSelect].reservation.name || 'indefinido'}</p>
+                      <p>{selectedDates[indexSelect].reservation.contact || 'indefinido'}</p>
+                      <p>{selectedDates[indexSelect].reservation.deposit || 'indefinido'}</p>
+                      <p>{selectedDates[indexSelect].reservation.value || 'indefinido'}</p>
+                      <p>
+                        {isoToLocaleString(selectedDates[indexSelect].reservation.inityDate) ||
+                          'indefinido'}
+                      </p>
+                      <p>
+                        {isoToLocaleString(selectedDates[indexSelect].reservation.endDate) ||
+                          'indefinido'}
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="whitespace-nowrap invisible">Início Da Estadia:</p>
+                    </div>
+                  )}
                 </div>
-                {selectedDates[indexSelect]?.reservation ? (
-                  <div className="text-lg whitespace-nowrap">
-                    <p>{selectedDates[indexSelect].reservation.name || 'indefinido'}</p>
-                    <p>{selectedDates[indexSelect].reservation.contact || 'indefinido'}</p>
-                    <p>{selectedDates[indexSelect].reservation.deposit || 'indefinido'}</p>
-                    <p>{selectedDates[indexSelect].reservation.value || 'indefinido'}</p>
-                    <p>
-                      {isoToLocaleString(selectedDates[indexSelect].reservation.inityDate) ||
-                        'indefinido'}
-                    </p>
-                    <p>
-                      {isoToLocaleString(selectedDates[indexSelect].reservation.endDate) ||
-                        'indefinido'}
+                {selectedDates[indexSelect]?.reservation?.observations ? (
+                  <div className="flex flex-col items-center w-full pr-5 pl-5">
+                    <p className="text-lg whitespace-nowrap">Observações:</p>
+                    <p className="text-justify max-w-full">
+                      {selectedDates[indexSelect].reservation.observations}
                     </p>
                   </div>
                 ) : (
-                  <div>
-                    <p className="whitespace-nowrap invisible">Início Da Estadia:</p>
+                  <div className="flex flex-col items-center w-full">
+                    <p className="whitespace-nowrap text-lg">Observações:</p>
                   </div>
                 )}
               </div>
