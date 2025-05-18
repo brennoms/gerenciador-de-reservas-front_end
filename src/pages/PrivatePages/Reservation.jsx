@@ -13,7 +13,7 @@ export default function Property() {
   const navigate = useNavigate();
   const { setOptions } = useSideBarContext();
   const { year, calendar, selectedDates, setSelectedDates, propertyId } = useProperty();
-  const { setAlertMessage } = useAlert();
+  const { setSucessAlert } = useAlert();
   const { token } = useAuth();
   const [tenantName, setTenantName] = useState('');
   const [contact, setContact] = useState('');
@@ -70,7 +70,7 @@ export default function Property() {
         setMessage(res.message || 'erro ao fazer a reserva');
       } else {
         navigate(-1, { replace: true });
-        setAlertMessage('Reserva feita!');
+        setSucessAlert('Reserva feita!');
       }
     });
   }

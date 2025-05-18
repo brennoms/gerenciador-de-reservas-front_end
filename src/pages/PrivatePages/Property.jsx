@@ -14,7 +14,7 @@ export default function Property() {
   const location = useLocation();
   const isChildRoute = location.pathname.endsWith('/reservations');
   const { setOptions } = useSideBarContext();
-  const { setAlertMessage } = useAlert();
+  const { setSucessAlert } = useAlert();
   const { token } = useAuth();
   const { property, year, selectedDates, setSelectedDates, reloadCalendar, setReloadCalendar } =
     useProperty();
@@ -60,10 +60,11 @@ export default function Property() {
       token
     ).then(res => {
       if (!res.ok) {
-        setAlertMessage('Erro no sistema ao remover a reserva');
+        setSucessAlert('Erro no sistema ao remover a reserva');
       } else {
         setReloadCalendar(!reloadCalendar);
       }
+      setSucessAlert('Reserva removida com sucesso');
       setAlertRemoveReservation(false);
     });
   }

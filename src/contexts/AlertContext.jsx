@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { Alert } from '../components/Alert';
+import { SucessAlert } from '../components/SucessAlert';
 
 const AlertContext = createContext();
 
@@ -8,11 +8,11 @@ export function useAlert() {
 }
 
 export function AlertProvider({ children }) {
-  const [alertMessage, setAlertMessage] = useState(null);
+  const [sucessAlertMessage, setSucessAlert] = useState(null);
 
   return (
-    <AlertContext.Provider value={{ setAlertMessage }}>
-      {alertMessage ? <Alert message={alertMessage} /> : <></>}
+    <AlertContext.Provider value={{ setSucessAlert }}>
+      {sucessAlertMessage ? <SucessAlert message={sucessAlertMessage} /> : <></>}
       {children}
     </AlertContext.Provider>
   );
