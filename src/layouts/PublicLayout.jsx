@@ -7,7 +7,7 @@ export default function PublicLayout() {
         <h1>Site de Imóveis</h1>
       </header>
 
-      <main className="h-[80vh]">
+      <main className="min-h-[80vh]">
         <Outlet /> {/* Aqui entram as páginas públicas */}
       </main>
 
