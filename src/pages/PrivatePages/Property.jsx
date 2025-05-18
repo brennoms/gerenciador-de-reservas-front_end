@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { X, Check } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 import { useSideBarContext } from '../../layouts/PrivateLayout';
 import { useProperty } from '../../contexts/PropertyContext';
@@ -9,6 +9,8 @@ import { useAuth } from '../../contexts/AuthContext';
 import CalendarYear from '../../components/CalendarYear';
 import { removeReservation } from '../../services/reservationService';
 import { isoToLocaleString } from '../../utils/dataUtils';
+import { sendMessage } from '../../services/WhatssapService';
+import { getReservationMessage } from '../../utils/messageUtils';
 
 export default function Property() {
   const location = useLocation();
@@ -153,6 +155,18 @@ export default function Property() {
                   className={`default-button ${selectedDates[indexSelect]?.reservation ? '' : 'bg-black/10 hover:bg-black/10'}`}
                 >
                   Remover
+                </button>
+                <button
+                  className={`rounded py-2 px-4 text-white ${selectedDates[indexSelect]?.reservation ? 'bg-green-400 hover:bg-green-500' : 'bg-black/10 hover:bg-black/10'}`}
+                  onClick={() => {
+                    sendMessage(
+                      getReservationMessage(selectedDates[indexSelect].reservation, property),
+                      selectedDates[indexSelect].reservation.contact
+                    );
+                  }}
+                  disabled={selectedDates[indexSelect]?.reservation?.contact ? false : true}
+                >
+                  <MessageCircle />
                 </button>
               </div>
             </div>

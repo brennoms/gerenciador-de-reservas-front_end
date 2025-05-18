@@ -122,7 +122,7 @@ export default function Property() {
             <input
               className="comum-entry"
               value={contact}
-              placeholder="Contato"
+              placeholder="Celular, ex: +55 21 1234..."
               onChange={e => setContact(e.target.value)}
               required
             />
