@@ -148,7 +148,6 @@ export default function Property() {
               value={observations}
               placeholder="Observações"
               onChange={e => setObservations(e.target.value)}
-              required
             />
 
             <div className="flex items-center max-w-full">
