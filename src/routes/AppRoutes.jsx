@@ -6,7 +6,7 @@ import PublicLayout from '../layouts/PublicLayout';
 import PrivateLayout from '../layouts/PrivateLayout';
 import Home from '../pages/PublicPages/Home';
 import Login from '../pages/PublicPages/Login';
-import Register from '../pages/PublicPages/Register';
+import { Register, Form, Auth } from '../pages/PublicPages/Register/Register';
 import Property from '../pages/PrivatePages/Property';
 import Properties from '../pages/PrivatePages/Properties';
 import PropertiesAdd from '../pages/PrivatePages/PropertiesAdd';
@@ -19,7 +19,10 @@ export default function AppRoutes() {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Register />}>
+          <Route path="form" element={<Form />} />
+          <Route path="auth" element={<Auth />} />
+        </Route>
       </Route>
 
       <Route element={<PrivateLayout />}>

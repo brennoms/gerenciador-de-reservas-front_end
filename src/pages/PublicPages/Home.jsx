@@ -8,7 +8,7 @@ export default function Home() {
       <button className="default-button" onClick={() => navigate('/login')}>
         Entrar
       </button>
-      <button className="default-button" onClick={() => navigate('/register')}>
+      <button className="default-button" onClick={() => navigate('/register/form')}>
         Cadastrar
       </button>
     </div>
