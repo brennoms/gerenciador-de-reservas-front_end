@@ -19,7 +19,7 @@ export async function registerUser(name, email, pass, code) {
 
 export async function enviarCodigo(email) {
   try {
-    const res = await api.post('/usuarios/cadastro/codigo', { email: email }, { timeout: 30000 });
+    const res = await api.post('/usuarios/cadastro/codigo', { email: email }, { timeout: 100000 });
     if (res.status === 201) {
       return { result: true, message: res.data.mensagem || 'Código enviado com sucesso.' };
     }
